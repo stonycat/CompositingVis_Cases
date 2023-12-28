@@ -21,8 +21,8 @@ public class Activity0_Uber : MonoBehaviour {
     // Use this for initialization
     void Start () {
         csvdata = createCSVDataSource(uberData.text);
-        Uber(csvdata);
-        //FacetBy("Base");
+        //Uber(csvdata);
+        FacetBy("Base");
     }
 
     void FacetBy(string attribute)
@@ -87,14 +87,15 @@ public class Activity0_Uber : MonoBehaviour {
         ViewBuilder vb = new ViewBuilder(MeshTopology.Points, "Uber pick up point visualisation").
             initialiseDataView(csvds.DataCount).
             setDataDimension(csvds["Lat"].Data, ViewBuilder.VIEW_DIMENSION.X).
-            setDataDimension(csvds["Base"].Data, ViewBuilder.VIEW_DIMENSION.Y).
+            setDataDimension(csvds["Lon"].Data, ViewBuilder.VIEW_DIMENSION.Y).
+            //setDataDimension(csvds["Date"].Data, ViewBuilder.VIEW_DIMENSION.Z);
             setSize(csvds["Base"].Data).
             setColors(csvds["Time"].Data.Select(x => g.Evaluate(x)).ToArray());
 
         // initialise the view builder wiith thhe number of data points and parent GameOBject
 
         //Enumerable.Repeat(1f, dataSource[0].Data.Length).ToArray()
-        Material mt = IATKUtil.GetMaterialFromTopology(AbstractVisualisation.GeometryType.Points);            
+        Material mt = IATKUtil.GetMaterialFromTopology(AbstractVisualisation.GeometryType.Spheres);            
         mt.SetFloat("_MinSize", 0.01f);
         mt.SetFloat("_MaxSize", 0.05f);
 

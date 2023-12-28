@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/IATK/Scenes/VRTK v4 Scene.unity
+    path: Assets/IATK/Datasets/Scenes/VRTK v4 Scene.unity
     guid: 681e143a8cc7683489311884a25a515e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 62620829e0af8c542b99219c8f4a9f00,
