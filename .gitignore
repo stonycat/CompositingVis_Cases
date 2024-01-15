@@ -24,10 +24,10 @@ shadercompiler-UnityShaderCompiler*
 /Assets/OvrAvatar/
 /Assets/Plugins/
 /Assets/MetaSDK/
-/Assets/Resources
-/Assets/Resources.meta
-/Assets/Mapbox/
-/Assets/Mapbox.meta
+# /Assets/Resources
+# /Assets/Resources.meta
+# /Assets/Mapbox/
+# /Assets/Mapbox.meta
 
 # ============================================= #
 # Visual Studio / MonoDevelop / Rider generated #
