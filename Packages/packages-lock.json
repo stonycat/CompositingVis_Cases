@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.nox7atra.triangle.net": {
+      "version": "https://github.com/Nox7atra/Triangle.Net-for-Unity.git?path=/Assets/TriangleNet",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "de1bb020f97f730257a1e49f1afd87954663be71"
+    },
     "com.unity.collab-proxy": {
       "version": "1.15.18",
       "depth": 0,
