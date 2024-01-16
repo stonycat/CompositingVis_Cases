@@ -16,6 +16,5 @@ public class DistanceLinker : MonoBehaviour {
 	void Update () {
         if (lv!=null)
             lv.showLinks = Vector3.Distance(lv.visualisationSource.transform.position, lv.visualisationTarget.transform.position) < distance;
-		
 	}
 }
