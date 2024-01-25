@@ -93,6 +93,7 @@ namespace Assets.Scripts.MonoBehaviors
 
         void Start()
         {
+            
         }
 
         void Update()

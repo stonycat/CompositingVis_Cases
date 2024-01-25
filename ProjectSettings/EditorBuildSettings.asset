@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/IATK/Datasets/Scenes/VRTK v4 Scene.unity
     guid: 681e143a8cc7683489311884a25a515e
+  - enabled: 0
+    path: Assets/Scenes/Exp.unity
+    guid: 79e46c31a201d4b47834e5e3662b43c8
+  - enabled: 1
+    path: Assets/IATK/Scenes/VRTK v4 Scene.unity
+    guid: 1c65f7f3ca8340b4c826850b39275d30
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 62620829e0af8c542b99219c8f4a9f00,
       type: 2}
