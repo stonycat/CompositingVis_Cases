@@ -21,7 +21,7 @@ public class Activity0_Uber : MonoBehaviour {
     // Use this for initialization
     void Start () {
         csvdata = createCSVDataSource(uberData.text);
-        //Uber(csvdata);
+        Uber(csvdata);
         FacetBy("Base");
     }
 
@@ -47,8 +47,6 @@ public class Activity0_Uber : MonoBehaviour {
 
         //View v2 = Faceting(csvdata, "B02512");
         //v2.transform.position = Vector3.right;
-
-
     }
 
     CSVDataSource createCSVDataSource(string data)

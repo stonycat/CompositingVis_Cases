@@ -513,6 +513,8 @@ namespace IATK
 
         }
 
+  
+
         void OnApplicationQuit()
         {
             if (theVisualizationObject.creationConfiguration != null)
@@ -524,10 +526,23 @@ namespace IATK
             destroyView();
 
         }
-
         
+        // add SetActive
+        private bool isActive = true; // 默认状态为激活
+        public void SetActive(bool active)
+        {
+            isActive = active;
 
-        
+            // 根据状态设置GameObject的激活状态
+            gameObject.SetActive(active);
+        }
+        public bool IsObjectActive()
+        {
+            return isActive;
+        }
+
+
+
     }
 
 }   // Namespace
