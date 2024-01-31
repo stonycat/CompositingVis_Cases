@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using IATK;
 using UnityEngine;
@@ -41,6 +42,18 @@ public class CreateSmallMultiples : MonoBehaviour
         Xvis03.SetActive(false);
         Xvis04.SetActive(false);
 
+        Xvis1.SetActive(false);
+        Xvis11.SetActive(false);
+        Xvis12.SetActive(false);
+        Xvis13.SetActive(false);
+        Xvis14.SetActive(false);
+
+        Xvis2.SetActive(false);
+        Xvis21.SetActive(false);
+        Xvis22.SetActive(false);
+        Xvis23.SetActive(false);
+        Xvis24.SetActive(false);
+
         lastPositionX = HandleX.position;
         lastPositionY = HandleY.position;
         Debug.Log("initial position X:" + HandleX.position.x);
@@ -60,11 +73,19 @@ public class CreateSmallMultiples : MonoBehaviour
         }
         if (lastPositionY != HandleY.position)
         {
-            //Debug.Log("Y handle moved:" + HandleY.position.y);
+            Debug.Log("Y handle moved:" + HandleY.position.y);
             lastPositionY = HandleY.position;
         }
 
+
         //show x repetition control
+        DetectXControlVis(HandleX);
+        DetectYControlVis(HandleY);
+
+    }
+
+    private void DetectXControlVis(Transform HandleX)
+    {
         if (HandleX.position.x > 0.5f)
         {
             Xvis01.SetActive(true);
@@ -78,7 +99,7 @@ public class CreateSmallMultiples : MonoBehaviour
             {
                 Xvis02.SetActive(true);
                 if (HandleX.position.x < 1.2f) // 0.7-1.0 1&2&3
-                { 
+                {
                     Xvis03.SetActive(false);
                     Xvis03.SetActive(false);
                 }
@@ -94,7 +115,7 @@ public class CreateSmallMultiples : MonoBehaviour
                         Xvis04.SetActive(true);
                     }
                 }
-                
+
             }
         }
         else //X back to initial position
@@ -104,12 +125,47 @@ public class CreateSmallMultiples : MonoBehaviour
             Xvis03.SetActive(false);
             Xvis04.SetActive(false);
         }
-
-
     }
 
-    private void DetectActiveVis()
+    private void DetectYControlVis(Transform HandleY)
     {
+        if (HandleY.position.y < 0.2f)
+        {
+            Xvis1.SetActive(true);
+            Xvis11.SetActive(true);
+            Xvis12.SetActive(true);
+            Xvis13.SetActive(true);
+            Xvis14.SetActive(true);
+            if (HandleY.position.y > -0.01f)
+            {
+                Xvis2.SetActive(false);
+                Xvis21.SetActive(false);
+                Xvis22.SetActive(false);
+                Xvis23.SetActive(false);
+                Xvis24.SetActive(false);
+            }
+            else if(HandleY.position.y < -0.2f)
+            {
+                Xvis2.SetActive(true);
+                Xvis21.SetActive(true);
+                Xvis22.SetActive(true);
+                Xvis23.SetActive(true);
+                Xvis24.SetActive(true);
+            }
+        }
+        else
+        {
+            Xvis1.SetActive(false);
+            Xvis11.SetActive(false);
+            Xvis12.SetActive(false);
+            Xvis13.SetActive(false);
+            Xvis14.SetActive(false);
 
+            Xvis2.SetActive(false);
+            Xvis21.SetActive(false);
+            Xvis22.SetActive(false);
+            Xvis23.SetActive(false);
+            Xvis24.SetActive(false);
+        }
     }
 }
