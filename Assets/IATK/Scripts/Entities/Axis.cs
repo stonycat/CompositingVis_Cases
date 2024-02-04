@@ -91,6 +91,7 @@ namespace IATK
             visualisationReference = visualisation;
             axisTickLabelPrefab.SetActive(false);
             
+            //Debug.Log(attributeFilter.Attribute);
             UpdateAxisAttribute(attributeFilter.Attribute);
         }
 
@@ -227,7 +228,7 @@ namespace IATK
                 #if !UNITY_EDITOR
                 Destroy(label);
                 #else
-                DestroyImmediate(label);
+                Destroy(label);
                 #endif
             }
         }

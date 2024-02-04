@@ -113,7 +113,7 @@ namespace IATK
         /// <param name="rotation"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected GameObject CreateAxis(AbstractVisualisation.PropertyType propertyType, DimensionFilter dimensionFilter, Vector3 position, Vector3 rotation, int index)
+        public GameObject CreateAxis(AbstractVisualisation.PropertyType propertyType, DimensionFilter dimensionFilter, Vector3 position, Vector3 rotation, int index)
         {
             GameObject AxisHolder;
             
@@ -138,7 +138,7 @@ namespace IATK
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="dim"></param>
-        protected void BindMinMaxAxisValues(Axis axis, DimensionFilter dim)
+        public void BindMinMaxAxisValues(Axis axis, DimensionFilter dim)
         {
             object minvalue = visualisationReference.dataSource.getOriginalValue(dim.minFilter, dim.Attribute);
             object maxvalue = visualisationReference.dataSource.getOriginalValue(dim.maxFilter, dim.Attribute);
@@ -147,7 +147,8 @@ namespace IATK
             object maxScaledvalue = visualisationReference.dataSource.getOriginalValue(dim.maxScale, dim.Attribute);
 
             axis.AttributeFilter = dim;
-            
+            //Debug.Log(dim.Attribute);
+
             axis.UpdateAxisAttribute(dim.Attribute);
             axis.SetMinNormalizer(dim.minScale);
             axis.SetMaxNormalizer(dim.maxScale);
@@ -191,6 +192,7 @@ namespace IATK
             foreach (var item in children)
             {
                 DestroyImmediate(item);
+                //Destroy(item);
             }
             name = backupname;
         }
@@ -201,7 +203,7 @@ namespace IATK
         /// <param name="configuration"></param>
         /// <param name="builder"></param>
         /// <returns></returns>
-        protected View ApplyGeometryAndRendering(CreationConfiguration configuration, ref ViewBuilder builder)
+        public View ApplyGeometryAndRendering(CreationConfiguration configuration, ref ViewBuilder builder)
         {
             Material mt = null;
 
@@ -308,13 +310,13 @@ namespace IATK
                     return null;
             }
         }
-        
+
         /// <summary>
         /// Geometries to mesh topology.
         /// </summary>
         /// <returns>The to mesh topology.</returns>
         /// <param name="geometry">Geometry.</param>
-        protected MeshTopology geometryToMeshTopology(AbstractVisualisation.GeometryType geometry)
+        public MeshTopology geometryToMeshTopology(AbstractVisualisation.GeometryType geometry)
         {
             switch (geometry)
             {
@@ -352,4 +354,14 @@ namespace IATK
         //}
 
     }
+
+
+    //public abstract class DerivedAbstractVis : AbstractVisualisation
+    //{
+
+    //    public void CallMinMaxFilter(Axis axis, DimensionFilter dim)
+    //    {
+    //        BindMinMaxAxisValues(axis, dim);
+    //    }
+    //}
 }

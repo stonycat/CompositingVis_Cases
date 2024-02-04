@@ -1,18 +1,25 @@
 using IATK;
 using System.Collections;
 using System.Collections.Generic;
+using Tilia.Interactions.Controllables.LinearDriver;
 using UnityEngine;
 
 public class CreateSM_Partition : MonoBehaviour
 {
 
     public Transform HandleX;
+    public LinearDriveFacade InteractHandleX;
 
-    public Visualisation OriginVisualisation;
-    public Visualisation Xvis01;
-    public Visualisation Xvis02;
-    public Visualisation Xvis03;
-    public Visualisation Xvis04;
+    public VRVisualisation OriginVisualisation;
+    public VRVisualisation Xvis01;
+    public VRVisualisation Xvis02;
+    public VRVisualisation Xvis03;
+    public VRVisualisation Xvis04;
+
+    //public AbstractVisualisation AbXvis;
+    public Axis AbXaxis;
+    //public DimensionFilter dim;
+    //private AttributeFilter attribute1;
 
     private Vector3 lastPositionX;
 
@@ -25,7 +32,11 @@ public class CreateSM_Partition : MonoBehaviour
         Xvis04.SetActive(false);
 
         lastPositionX = HandleX.position;
-        Debug.Log("initial position X:" + HandleX.position.x);
+        //Debug.Log("initial position X:" + HandleX.position.x);
+
+        //using my own handle
+        OriginVisualisation.LinkScalingEvent(InteractHandleX, AbXaxis.AxisDirection, false);
+
     }
 
     // Update is called once per frame

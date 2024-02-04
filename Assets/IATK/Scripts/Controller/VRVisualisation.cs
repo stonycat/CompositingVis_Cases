@@ -93,6 +93,7 @@ namespace IATK
             {
                 // If no axis are set then remove the box collider
                 DestroyImmediate(gameObject.GetComponent<BoxCollider>());
+                //Destroy(gameObject.GetComponent<BoxCollider>());
                 return;
             }
 
@@ -129,7 +130,7 @@ namespace IATK
             boxCollider.center = center;
             boxCollider.size = size;
         }
-        private void ConfigureHandle(Axis axis, string handleName, bool isMax)
+        public void ConfigureHandle(Axis axis, string handleName, bool isMax)
         {
             int axisDirection = axis.AxisDirection;
             GameObject handle = axis.transform.Find(handleName)?.gameObject;
@@ -164,7 +165,7 @@ namespace IATK
             ConfigLinerJoint(linerJoint.transform, axisDirection);
             ConfigLinerJointFacade(linerJointFacade, isMax);
         }
-        private void LinkGrabEvent(LinearDriveFacade linerJointFacade, Transform interactable)
+        public void LinkGrabEvent(LinearDriveFacade linerJointFacade, Transform interactable)
         {
             // Connects the linerJointFacade with the interactableFacade so the position of the normaliser object is correct 
             InteractableFacade interactableFacade = interactable.GetComponent<InteractableFacade>();
@@ -210,7 +211,7 @@ namespace IATK
             linerJointFacade.TargetValue = isMax ? 1f : 0f;
             linerJointFacade.SetStepRangeMaximum(100f);
         }
-        private void LinkScalingEvent(LinearDriveFacade linerJointFacade, int axisDirection, bool isMax)
+        public void LinkScalingEvent(LinearDriveFacade linerJointFacade, int axisDirection, bool isMax)
         {
             // Connects the linerJoint to the corresponding min/max axis
             UnityAction<float> setScaleAction = (axisDirection, isMax) switch
@@ -225,7 +226,7 @@ namespace IATK
             };
             linerJointFacade.NormalizedValueChanged.AddListener(setScaleAction);
         }
-        private UnityEngine.Events.UnityAction<float> SetScaleBuilder(Action<float> setScale)
+        public UnityEngine.Events.UnityAction<float> SetScaleBuilder(Action<float> setScale)
         {
             UnityEngine.Events.UnityAction<float> action = (float scale) =>
             {

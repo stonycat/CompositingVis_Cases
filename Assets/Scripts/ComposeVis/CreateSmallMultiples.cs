@@ -58,6 +58,8 @@ public class CreateSmallMultiples : MonoBehaviour
         lastPositionY = HandleY.position;
         Debug.Log("initial position X:" + HandleX.position.x);
         Debug.Log("initial position Y:" + HandleY.position.y);
+
+        
     }
 
 
