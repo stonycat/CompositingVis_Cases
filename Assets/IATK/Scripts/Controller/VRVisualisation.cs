@@ -226,10 +226,30 @@ namespace IATK
             };
             linerJointFacade.NormalizedValueChanged.AddListener(setScaleAction);
         }
+        public void HalfScalingEventPartition(LinearDriveFacade linerJointFacade, int axisDirection, bool isMax, float startPartition, float endPartition)
+        {
+            //Debug.Log(linerJointFacade.transform.position.x);
+            UnityAction<float> setScaleAction = (axisDirection, isMax) switch
+            {
+                (1, false) => SetScaleBuilder(x =>
+                {
+                    //Debug.Log(x);
+                    xDimension.minScale = x;
+                }),
+                (1, true) => SetScaleBuilder(x =>
+                {
+                    xDimension.maxScale = endPartition;
+                }),
+                _ => throw new Exception("Invalid Axis Direction")
+            };
+            linerJointFacade.NormalizedValueChanged.AddListener(setScaleAction);
+        }
+
         public UnityEngine.Events.UnityAction<float> SetScaleBuilder(Action<float> setScale)
         {
             UnityEngine.Events.UnityAction<float> action = (float scale) =>
             {
+                //Debug.Log("test:" + AbstractVisualisation.PropertyType.Scaling);
                 updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
                 setScale(scale);
                 updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
