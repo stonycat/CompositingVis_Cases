@@ -266,8 +266,11 @@ namespace IATK
             theVisualizationObject.UpdateVisualisation(AbstractVisualisation.PropertyType.X);
             theVisualizationObject.UpdateVisualisation(AbstractVisualisation.PropertyType.Y);
             theVisualizationObject.UpdateVisualisation(AbstractVisualisation.PropertyType.Z);
+
+            Debug.Log("Vis test");
         }
 
+        
         /// <summary>
         /// creates the line indices for the data set
         /// </summary>

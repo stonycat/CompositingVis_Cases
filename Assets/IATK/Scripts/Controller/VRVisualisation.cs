@@ -56,6 +56,7 @@ namespace IATK
         public override void updateViewProperties(AbstractVisualisation.PropertyType propertyType)
         {
             base.updateViewProperties(propertyType);
+            //Debug.Log("VR Vis test");
 
             switch (propertyType)
             {
@@ -231,15 +232,8 @@ namespace IATK
             //Debug.Log(linerJointFacade.transform.position.x);
             UnityAction<float> setScaleAction = (axisDirection, isMax) switch
             {
-                (1, false) => SetScaleBuilder(x =>
-                {
-                    //Debug.Log(x);
-                    xDimension.minScale = x;
-                }),
-                (1, true) => SetScaleBuilder(x =>
-                {
-                    xDimension.maxScale = endPartition;
-                }),
+                (1, false) => SetScaleBuilder(x => xDimension.maxScale = endPartition),
+                (1, true) => SetScaleBuilder(x => xDimension.minScale = startPartition),
                 _ => throw new Exception("Invalid Axis Direction")
             };
             linerJointFacade.NormalizedValueChanged.AddListener(setScaleAction);
