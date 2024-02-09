@@ -12,6 +12,7 @@ TagManager:
   - PCP
   - LinkedVisualisation
   - Controller
+  - Edge
   layers:
   - Default
   - TransparentFX

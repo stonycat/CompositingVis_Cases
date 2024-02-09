@@ -15,7 +15,8 @@ namespace IATK
 
             foreach (View v in viewList)
             {
-                DestroyImmediate(v.gameObject);
+                if (Application.isPlaying) Destroy(v.gameObject);
+                else DestroyImmediate(v.gameObject);
             }
 
             viewList.Clear();
