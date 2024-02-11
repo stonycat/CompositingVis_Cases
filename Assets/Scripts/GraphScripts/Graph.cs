@@ -22,6 +22,7 @@ public class Graph : MonoBehaviour
     private List<float> distances;
     private int numNodes;
     private ClosestNodeListener closestNodeListener;
+    private MinDistanceListener minDistanceListener;
     private int grabNodeIdx;
     // Start is called before the first frame update
     void Start()
@@ -30,32 +31,32 @@ public class Graph : MonoBehaviour
         distances = new List<float>();
         closestNodeListener = new ClosestNodeListener();
         closestNodeListener.OnVariableChange += ClosestNodeListener_OnVariableChange;
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    GameObject child = transform.GetChild(i).gameObject;
-        //    if (child.GetComponent<Node>() != null)
-        //    {
-        //        Debug.Log("Child " + i + ": " +  child.transform.name);
-        //        nodes.Add(child);
-        //        distances.Add(0f);
-        //    }
-        //}
-        //numNodes = nodes.Count;
-        //for (int i = 0;i < numNodes; i++)
-        //{
-        //    for (int j = i+1; j < numNodes; j++)
-        //    {
-        //        nodes[i].GetComponent<Node>().AddRepForce(nodes[j].GetComponent<Node>());
-        //        nodes[j].GetComponent<Node>().AddRepForce(nodes[i].GetComponent<Node>());
-        //    }
-        //}
+        minDistanceListener = new MinDistanceListener();
+        minDistanceListener.OnVariableChange += updateNodes;
         LoadGMLFromFile(file);
-        //foreach (Node node in nodeList)
-        //{
-        //    if (node != null)
-        //        node.InitObj(trackedObj.transform);
-        //    else Debug.Log("is null");
-        //}
+    }
+
+    private void updateNodes(float minDist)
+    {
+        if (minDist > 0.5f)
+        {
+            closestNodeListener.ClosestNode = -1;
+            DeHighlightAll();
+        }
+        else
+        {
+            closestNodeListener.ClosestNode = distances.IndexOf(minDist);
+        }
+        if (minDist == 0)
+        {
+            // composited
+            for (int i = 0; i < numNodes; i++)
+            {
+                Node node = nodes[i].GetComponent<Node>();
+                node.SetObj();
+                node.HighlightNode();
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -103,26 +104,7 @@ public class Graph : MonoBehaviour
             //node.SetText(dist.ToString("F2"));
         }
         isMoving = isMoving && (grabNode > -1);
-        float minDist = distances.Min();
-        if (minDist > 0.5f)
-        {
-            closestNodeListener.ClosestNode = -1;
-            DeHighlightAll();
-        }
-        else
-        {
-            closestNodeListener.ClosestNode = distances.IndexOf(minDist);
-        }
-        if (minDist == 0)
-        {
-            // composited
-            for (int i = 0; i < numNodes; i++)
-            {
-                Node node = nodes[i].GetComponent<Node>();
-                node.SetObj();
-                node.HighlightNode();
-            }
-        }
+        minDistanceListener.MinDist = distances.Min();      
         if (isMoving)
         {
             // Breaking

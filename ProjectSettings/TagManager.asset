@@ -13,6 +13,7 @@ TagManager:
   - LinkedVisualisation
   - Controller
   - Edge
+  - HandCollider
   layers:
   - Default
   - TransparentFX

@@ -12,8 +12,8 @@ for node in G.nodes:
     G.nodes[node]['Intelligence'] = random.randint(1, 100)
 
 # Print the attributes for each node
-for node in G.nodes:
-    print(f"Node {node}: {G.nodes[node]}")
+# for node in G.nodes:
+#     print(f"Node {node}: {G.nodes[node]}")
 
 import matplotlib.pyplot as plt
 
@@ -22,6 +22,21 @@ strength_values = [G.nodes[node]['Strength'] for node in G.nodes]
 agility_values = [G.nodes[node]['Agility'] for node in G.nodes]
 endurance_values = [G.nodes[node]['Endurance'] for node in G.nodes]
 intelligence_values = [G.nodes[node]['Intelligence'] for node in G.nodes]
+
+print(4)
+print(len(G.nodes))
+print("Strength")
+for v in strength_values:
+    print(v)
+print("Agility")
+for v in agility_values:
+    print(v)
+print("Endurance")
+for v in endurance_values:
+    print(v)
+print("Intelligence")
+for v in intelligence_values:
+    print(v)
 
 # Create a bar chart
 plt.bar(G.nodes, strength_values, label='Strength')

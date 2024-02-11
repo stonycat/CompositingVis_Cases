@@ -49,6 +49,11 @@ public class InteractableTest : MonoBehaviour
         SerializedProperty foundProperty = actionObject.FindProperty("grabOffset");
         foundProperty.intValue = option; // None
         foundProperty.serializedObject.ApplyModifiedProperties();
+
+        int secondaryActionIndex = 2; // Swap
+        GameObject secondaryActionPrefab = (GameObject)PrefabUtility.InstantiatePrefab(interactable.Configuration.GrabConfiguration.ActionTypes.NonSubscribableElements[secondaryActionIndex], interactable.Configuration.GrabConfiguration.ActionTypes.transform);
+        GrabInteractableAction secondaryAction = secondaryActionPrefab.GetComponent<GrabInteractableAction>();
+        interactable.Configuration.GrabConfiguration.SecondaryAction = secondaryAction;
     }
 
 }

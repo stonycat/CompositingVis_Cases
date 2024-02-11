@@ -25,8 +25,6 @@ public class Node : MonoBehaviour
   
     void Start(){
         collided = false;
-        //subObj = null;
-        Debug.Log("start");
         interactableStatus = GetComponent<InteractableTest>();
         meshRenderer = transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         nodeObj = transform.GetChild(0).GetChild(1).gameObject;
@@ -95,14 +93,28 @@ public class Node : MonoBehaviour
             return;
         }
         Debug.Log(this.name + " collided!");
+
         collision.gameObject.SetActive(false);
         SetObj();
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log(this.name + " triggered!");
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name + " " + other.tag);
+        if (other.tag == "HandCollider")
+        {
+            Debug.Log(name + " enlarged");
+            transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "HandCollider")
+        {
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        }
+    }
 
     private void OnCollisionExit(Collision collision)
     {
