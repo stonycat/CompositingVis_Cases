@@ -12,7 +12,7 @@ public class Node : MonoBehaviour
     public bool isGrabbing;
 
     private GameObject epf;
-    private List<GameObject>  edges  = new List<GameObject> ();
+    private List<GameObject> edges = new List<GameObject>();
     private List<SpringJoint> joints = new List<SpringJoint>();
     private Color nodeColor;
     private Color nodeTouchColor;
@@ -22,8 +22,9 @@ public class Node : MonoBehaviour
     private GameObject subObj;
     private InteractableTest interactableStatus;
     private bool collided;
-  
-    void Start(){
+
+    void Start()
+    {
         collided = false;
         interactableStatus = GetComponent<InteractableTest>();
         meshRenderer = transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
@@ -36,7 +37,7 @@ public class Node : MonoBehaviour
         nodeInColor.a = 0.3f;
         //transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
         //transform.GetChild(0).gameObject.SetActive(false);
-        //nodeObj.transform.LookAt(nodeObj.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        //transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
 
         //for (int i = 0; i < connected_nodes.Count; i++) 
         //{
@@ -45,6 +46,7 @@ public class Node : MonoBehaviour
         //    AddAttrForce(node, 1);
         //    node.AddAttrForce(GetComponent<Node>(), 1);
         //}
+        //nodeObj.transform.LookAt(Vector3.up);
     }
     private void FixedUpdate()
     {
@@ -61,11 +63,13 @@ public class Node : MonoBehaviour
         }
     }
 
-    void Update(){
+    void Update()
+    {
         isMoving = interactableStatus.isMoving && collided;
         isGrabbing = interactableStatus.interactable.IsGrabbed;
         int i = 0;
-        foreach (GameObject edge in edges){
+        foreach (GameObject edge in edges)
+        {
             edge.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             SpringJoint sj = joints[i];
             GameObject target = sj.connectedBody.gameObject;
@@ -73,11 +77,12 @@ public class Node : MonoBehaviour
             Vector3 ls = edge.transform.localScale;
             ls.z = Vector3.Distance(transform.position, target.transform.position);
             edge.transform.localScale = ls;
-            edge.transform.position = new Vector3((transform.position.x+target.transform.position.x)/2,
-					    (transform.position.y+target.transform.position.y)/2,
-					    (transform.position.z+target.transform.position.z)/2);
+            edge.transform.position = new Vector3((transform.position.x + target.transform.position.x) / 2,
+                        (transform.position.y + target.transform.position.y) / 2,
+                        (transform.position.z + target.transform.position.z) / 2);
             i++;
         }
+        subObj.transform.LookAt(subObj.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -127,11 +132,13 @@ public class Node : MonoBehaviour
         collided = false;
     }
 
-    public void SetEdgePrefab(GameObject epf){
+    public void SetEdgePrefab(GameObject epf)
+    {
         this.epf = epf;
     }
-  
-    public void AddEdge(Node n){
+
+    public void AddEdge(Node n)
+    {
         SpringJoint sj = gameObject.AddComponent<SpringJoint>();
         sj.autoConfigureConnectedAnchor = false;
         sj.anchor = new Vector3(0, 0.5f, 0);
@@ -146,7 +153,7 @@ public class Node : MonoBehaviour
         edges.Add(edge);
         joints.Add(sj);
     }
-    
+
     public float DistanceToObj(GameObject obj)
     {
         if (collided) return 0;
@@ -177,7 +184,7 @@ public class Node : MonoBehaviour
         meshRenderer.material.SetColor("_Color", nodeInColor);
 
         //subObj.transform.LookAt(subObj.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
-        //subObj.transform.LookAt(Vector3.zero);
+        //subObj.transform.LookAt(nodeObj.transform.rotation * Vector3.up);
         //subObj.GetComponent<BoxCollider>().enabled = false;
         subObj.SetActive(true);
         collided = true;
@@ -185,11 +192,11 @@ public class Node : MonoBehaviour
 
     public void InitObj(Transform trackedObjTransform)
     {
-        Debug.Log(name + " Init");
+        //Debug.Log(name + " Init");
         subObj = Instantiate(trackedObjTransform.GetChild(0).GetChild(1).gameObject, trackedObjTransform.position, trackedObjTransform.rotation);
         subObj.transform.parent = transform.GetChild(0).GetChild(1);
-        subObj.transform.localPosition = Vector3.zero;
-        subObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        subObj.transform.localPosition = new Vector3(0, 0, 0);
+        subObj.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
         subObj.GetComponent<BoxCollider>().enabled = false;
         subObj.SetActive(false);
     }
@@ -207,7 +214,7 @@ public class Node : MonoBehaviour
         Vector3 force = transform.position - n.transform.position;
         float r = force.magnitude;
         Vector3 direction = force.normalized;
-        thisNode.AddForce(direction *0.5f* (n.GetComponent<Rigidbody>().mass * thisNode.mass / (r * r)));
+        thisNode.AddForce(direction * 0.5f * (n.GetComponent<Rigidbody>().mass * thisNode.mass / (r * r)));
     }
 
     public void AddAttrForce(Node n, float dist)

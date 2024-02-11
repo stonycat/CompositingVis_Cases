@@ -14,6 +14,7 @@ TagManager:
   - Controller
   - Edge
   - HandCollider
+  - DebugTest
   layers:
   - Default
   - TransparentFX
