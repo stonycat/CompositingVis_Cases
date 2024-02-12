@@ -10,6 +10,7 @@ public class Node : MonoBehaviour
     //public List<Node> connected_nodes = new List<Node> ();
     public bool isMoving;
     public bool isGrabbing;
+    public int id;
 
     private GameObject epf;
     private List<GameObject> edges = new List<GameObject>();
@@ -50,16 +51,16 @@ public class Node : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        foreach (GameObject edge in edges)
+        foreach (SpringJoint sj in joints)
         {
-            int i = 0;
-            SpringJoint sj = joints[i];
+            //int i = 0;
+            //SpringJoint sj = joints[i];
             GameObject target = sj.connectedBody.gameObject;
             Node n = GetComponent<Node>();
             Node m = target.GetComponent<Node>();
             n.AddAttrForce(m, 0.001f);
             m.AddAttrForce(n, 0.001f);
-            i++;
+            //i++;
         }
     }
 
@@ -106,18 +107,20 @@ public class Node : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.name + " " + other.tag);
-        if (other.tag == "HandCollider")
+        if (other.tag == "HandCollider" && collided)
         {
             Debug.Log(name + " enlarged");
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            GetComponent<Rigidbody>().mass = 3f;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "HandCollider")
+        if (other.tag == "HandCollider" && collided)
         {
             transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            GetComponent<Rigidbody>().mass = 1f;
         }
     }
 
@@ -192,10 +195,21 @@ public class Node : MonoBehaviour
 
     public void InitObj(Transform trackedObjTransform)
     {
-        //Debug.Log(name + " Init");
-        subObj = Instantiate(trackedObjTransform.GetChild(0).GetChild(1).gameObject, trackedObjTransform.position, trackedObjTransform.rotation);
+        GameObject trackedObj = trackedObjTransform.GetChild(0).GetChild(1).gameObject;
+        subObj = Instantiate(trackedObj, trackedObjTransform.position, trackedObjTransform.rotation);
+        StackedBarDraw stackedBarDraw = subObj.GetComponent<StackedBarDraw>();
+        stackedBarDraw.attr = new Dictionary<string, List<int>>();
+        stackedBarDraw.isStacked = false;
+        stackedBarDraw.useDifferentMaterialEachBar = true;
+        stackedBarDraw.materials = trackedObj.GetComponent<StackedBarDraw>().materials;
+        foreach (string s in trackedObj.GetComponent<StackedBarDraw>().attr.Keys)
+        {
+            stackedBarDraw.attr.Add(s, new List<int> { trackedObj.GetComponent<StackedBarDraw>().attr[s][id] });
+        }
+        stackedBarDraw.ResetData();
+        stackedBarDraw.CreateChart();
         subObj.transform.parent = transform.GetChild(0).GetChild(1);
-        subObj.transform.localPosition = new Vector3(0, 0, 0);
+        subObj.transform.localPosition = new Vector3(0, 0f, 0);
         subObj.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
         subObj.GetComponent<BoxCollider>().enabled = false;
         subObj.SetActive(false);

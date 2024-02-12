@@ -33,7 +33,9 @@ public class Graph : MonoBehaviour
         closestNodeListener.OnVariableChange += ClosestNodeListener_OnVariableChange;
         minDistanceListener = new MinDistanceListener();
         minDistanceListener.OnVariableChange += updateNodes;
+        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
         LoadGMLFromFile(file);
+        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
     }
 
     private void updateNodes(float minDist)
@@ -174,7 +176,6 @@ public class Graph : MonoBehaviour
                     n = go.GetComponent<Node>();
                     n.transform.parent = transform;
                     n.SetEdgePrefab(edgepf);
-                    n.InitObj(trackedObj.transform);
                     nodes.Add(go);
                     continue;
                 }
@@ -231,5 +232,17 @@ public class Graph : MonoBehaviour
         }
         nodeList = nodeDict.Values.ToList();
         numNodes = nodeList.Count;
+        SetNodeSubObjs();
+    }
+
+    private void SetNodeSubObjs()
+    {
+        trackedObj.SetActive(false);
+        for (int i = 0; i < numNodes; i++)
+        {
+            nodeList[i].id = i;
+            nodeList[i].InitObj(trackedObj.transform);
+        }
+        trackedObj.SetActive(true);
     }
 }

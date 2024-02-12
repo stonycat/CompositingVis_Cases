@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/IATK/Scenes/VRTK v4 Scene.unity
     guid: 1c65f7f3ca8340b4c826850b39275d30
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 62620829e0af8c542b99219c8f4a9f00,
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5c3cfd3e962a718469f32d816fc26e0e,
       type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 800f7226d1299434e9f4c95341185e58,
       type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1e07af08c2aef7944bcc03ffe25e456b,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 703a61d86bf92cb46b731814934dd259,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 5cce7150312ad7645938dbbe27cf913b,
       type: 2}
