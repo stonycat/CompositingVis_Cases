@@ -17,9 +17,9 @@ public class CreateSM_Partition : MonoBehaviour
     public VRVisualisation OriginVisualisation;
 
     //public float startPartition;
-    public float endPartition;
+    //public float endPartition;
     //public AbstractVisualisation AbXvis;
-    public Axis AbXaxis;
+    //public Axis AbXaxis;
     //public DimensionFilter dim;
     //private AttributeFilter attribute1;
 
@@ -38,7 +38,7 @@ public class CreateSM_Partition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Intial HandleX move" + HandleX.position.x);
+        //Debug.Log("Intial HandleX move" + HandleX.position.x);
     }
     //scatterplot0 cut max
     public void partitionVis0()
@@ -47,9 +47,21 @@ public class CreateSM_Partition : MonoBehaviour
         OriginVisualisation.DataScalingEventPartition0(InteractHandleX, HandleX.position.x);
 
     }
-    //public void partitionVis01()
-    //{
-    //    OriginVisualisation.HalfScalingEventPartition(InteractHandleX, AbXaxis.AxisDirection, true, 0.01f, 0.33f);
-    //}
+    public void partitionVis01()
+    {
+        OriginVisualisation.DataScalingEventPartition01(InteractHandleX, HandleX.position.x);
+    }
+    public void partitionVis02()
+    {
+        OriginVisualisation.DataScalingEventPartition02(InteractHandleX, HandleX.position.x);
+    }
+
+    //Y update Data
+    public void partitionVisY0()
+    {
+        //OriginVisualisation.doit(InteractHandleX.transform.position.x, 1.0f);
+        OriginVisualisation.DataScalingEventPartitionY0(InteractHandleX, HandleX.position.x);
+
+    }
 
 }

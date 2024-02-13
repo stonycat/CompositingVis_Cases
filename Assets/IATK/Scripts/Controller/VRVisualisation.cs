@@ -237,18 +237,35 @@ namespace IATK
         /// <param name="updateX"></param>
         public void DataScalingEventPartition0(LinearDriveFacade linerJointFacade, float updateX)
         {
-            //Debug.Log("handleX:" + updateX);
-            xDimension.maxScale = -0.67f * updateX + 1.33f;
+            //updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            xDimension.minScale = 0.0f;
+            xDimension.maxScale = -0.5714f * updateX + 1.1429f;
+            Debug.Log("XHandle: " + updateX + "Scatter0MaxScale: " + xDimension.maxScale);
             updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
         }
         public void DataScalingEventPartition01(LinearDriveFacade linerJointFacade, float updateX)
         {
-            
-            xDimension.maxScale = -0.67f * updateX + 1.33f;
+            xDimension.minScale = -0.3571f * updateX + 0.8571f;
+            xDimension.maxScale = -0.7143f * updateX + 1.5714f;
+            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+        }
+        public void DataScalingEventPartition02(LinearDriveFacade linerJointFacade, float updateX)
+        {
+            xDimension.minScale = -0.3333f * updateX + 1.0f;
+            xDimension.maxScale = -0.25f * updateX + 1.34f;
             updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
         }
 
 
+        //Y
+        public void DataScalingEventPartitionY0(LinearDriveFacade linerJointFacade, float updateX)
+        {
+            //updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            yDimension.minScale = 1.0f - updateX;
+            yDimension.maxScale = 1.0f;
+            //Debug.Log("YHandle: " + updateX + "Scatter0YMinScale: " + xDimension.minScale);
+            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+        }
 
 
         public UnityEngine.Events.UnityAction<float> SetScaleBuilder(Action<float> setScale)
