@@ -15,22 +15,25 @@ public class PositionWatcher : MonoBehaviour
     void Start()
     {
         lastPosition = handleXWatch.position;
+        //Debug.Log("initial:" + lastPosition.x);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.3f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.6f)
+        //Debug.Log("handle positionX:" + handleXWatch.position.x);
+        
+        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.35f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.6f)
         {
             onPositionChange1.Invoke(handleXWatch);
         }
 
-        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.6f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.9f)
+        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.65f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.9f)
         {
             onPositionChange2.Invoke(handleXWatch);
         }
 
-        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.9f)
+        if (Vector3.Distance(lastPosition, handleXWatch.position) > 1.0f)
         {
             onPositionChange3.Invoke(handleXWatch);
         }

@@ -26,11 +26,12 @@ namespace IATK
             Axis[] axes = GetComponentsInChildren<Axis>();
             if (axes == null) return;
 
-            foreach (Axis axis in axes)
-            {
-                ConfigureHandle(axis, "MinAxisHandle", false);
-                ConfigureHandle(axis, "MaxAxisHandle", true);
-            }
+            //cancel due to set handle
+            //foreach (Axis axis in axes)
+            //{
+            //    //ConfigureHandle(axis, "MinAxisHandle", false);
+            //    //ConfigureHandle(axis, "MaxAxisHandle", true);
+            //}
         }
 
         void Update()
@@ -226,18 +227,29 @@ namespace IATK
                 _ => throw new Exception("Invalid Axis Direction")
             };
             linerJointFacade.NormalizedValueChanged.AddListener(setScaleAction);
+            
         }
-        public void HalfScalingEventPartition(LinearDriveFacade linerJointFacade, int axisDirection, bool isMax, float startPartition, float endPartition)
+       
+        /// <summary>
+        /// /added new function
+        /// </summary>
+        /// <param name="linerJointFacade"></param>
+        /// <param name="updateX"></param>
+        public void DataScalingEventPartition0(LinearDriveFacade linerJointFacade, float updateX)
         {
-            //Debug.Log(linerJointFacade.transform.position.x);
-            UnityAction<float> setScaleAction = (axisDirection, isMax) switch
-            {
-                (1, false) => SetScaleBuilder(x => xDimension.maxScale = endPartition),
-                (1, true) => SetScaleBuilder(x => xDimension.minScale = startPartition),
-                _ => throw new Exception("Invalid Axis Direction")
-            };
-            linerJointFacade.NormalizedValueChanged.AddListener(setScaleAction);
+            //Debug.Log("handleX:" + updateX);
+            xDimension.maxScale = -0.67f * updateX + 1.33f;
+            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
         }
+        public void DataScalingEventPartition01(LinearDriveFacade linerJointFacade, float updateX)
+        {
+            
+            xDimension.maxScale = -0.67f * updateX + 1.33f;
+            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+        }
+
+
+
 
         public UnityEngine.Events.UnityAction<float> SetScaleBuilder(Action<float> setScale)
         {

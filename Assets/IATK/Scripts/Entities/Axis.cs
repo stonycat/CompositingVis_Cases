@@ -225,9 +225,9 @@ namespace IATK
         {
             foreach (GameObject label in GetAxisTickLabels())
             {
-                #if !UNITY_EDITOR
+#if !UNITY_EDITOR
                 destroyImmediate(label);
-                #else
+#else
                 DestroyImmediate(label);
                 #endif
             }
