@@ -19,6 +19,9 @@ namespace Assets.Scripts.MonoBehaviors
 
         public string PropName = "Area";
 
+
+        public GameObject trackObjInteractable;
+
         public List<MapSubRegionObj> SubRegionObjs;
 
         public Material MapBoundaryMaterial;
@@ -86,9 +89,10 @@ namespace Assets.Scripts.MonoBehaviors
         }
         void Start()
         {
-            Debug.Log("shiiiiiiiiit");
             //this.DrawMap($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
             // this.UpdateMapData($"{Settings.DataDir}{this.GeoName.ToString()}-Data-Test.csv");
+            trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
+            trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
             var defaultLineWidth = 0.0005f;
             var geoString = this.GeoName.ToString();
             if (this.GeoName == GeoName.US)
@@ -108,7 +112,7 @@ namespace Assets.Scripts.MonoBehaviors
 
             this.fitMapBoundaryProj = new FitMapProj(this.proj, this.mapBoundaryData);
             this.fitMapBoundaryProj.FitExtent(Settings.MapSize);
-            this.SetupScales($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
+            this.SetupScales($"{Settings.DataDir}{this.GeoName}-Data.csv");
             Action<MapSubRegionObj, MapPolygon, Color32, float> subRegionAction = null;
             Action<MapRegionCircle, Vector3, int, float, float> RegionAction = null;
             Action<MapRegionLabel, string, Vector3, float> LabelAction = null;
@@ -154,7 +158,7 @@ namespace Assets.Scripts.MonoBehaviors
                 var subRegions = new List<MapSubRegionObj>();
                 foreach (var polygon in thisPolygons)
                 {
-                    Debug.Log("Draw " + thisName + "_" + index);
+                    //Debug.Log("Draw " + thisName + "_" + index);
                     var subRegionName = $"{thisName}_{index}";
                     //var thisPoly = new GameObject($"{thisName}_{index}");
                     var thisPoly = SubRegionObjs[0];

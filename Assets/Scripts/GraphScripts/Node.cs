@@ -198,13 +198,13 @@ public class Node : MonoBehaviour
         GameObject trackedObj = trackedObjTransform.GetChild(0).GetChild(1).gameObject;
         subObj = Instantiate(trackedObj, trackedObjTransform.position, trackedObjTransform.rotation);
         StackedBarDraw stackedBarDraw = subObj.GetComponent<StackedBarDraw>();
-        stackedBarDraw.attr = new Dictionary<string, List<int>>();
+        stackedBarDraw.attr = new Dictionary<string, List<float>>();
         stackedBarDraw.isStacked = false;
         stackedBarDraw.useDifferentMaterialEachBar = true;
         stackedBarDraw.materials = trackedObj.GetComponent<StackedBarDraw>().materials;
         foreach (string s in trackedObj.GetComponent<StackedBarDraw>().attr.Keys)
         {
-            stackedBarDraw.attr.Add(s, new List<int> { trackedObj.GetComponent<StackedBarDraw>().attr[s][id] });
+            stackedBarDraw.attr.Add(s, new List<float> { trackedObj.GetComponent<StackedBarDraw>().attr[s][id] });
         }
         stackedBarDraw.ResetData();
         stackedBarDraw.CreateChart();

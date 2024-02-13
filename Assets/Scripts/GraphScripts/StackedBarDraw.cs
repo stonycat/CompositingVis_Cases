@@ -11,8 +11,7 @@ public class StackedBarDraw : MonoBehaviour
     public Material[] materials;
     public bool isStacked;
     public bool useDifferentMaterialEachBar;
-    public Dictionary<string, List<int>> attr;
-    public Graph graph;
+    public Dictionary<string, List<float>> attr;
 
     private int numAttr;
     private int numNode;
@@ -20,8 +19,8 @@ public class StackedBarDraw : MonoBehaviour
     private int StepL;
     private List<float> XLinspace;
 
-    private const float MinX = -0.44f;
-    private const float MaxX = 0.54f;
+    private const float MinX = -0.5f;
+    private const float MaxX = 0.5f;
     StackedBarDraw(bool isStacked)
     {
         this.isStacked = isStacked;
@@ -52,18 +51,18 @@ public class StackedBarDraw : MonoBehaviour
     private void LoadData()
     {
         if (data == null || attr != null) return;
-        attr = new Dictionary<string, List<int>>();
+        attr = new Dictionary<string, List<float>>();
         string[] lines = data.text.Split("\n");
         numAttr = int.Parse(lines[0].Trim());
         numNode = int.Parse(lines[1].Trim());
         for (int i = 0; i < numAttr; i++)
         {
             string attrName = lines[i * (numNode + 1) + 2].Trim();
-            attr.Add(attrName, new List<int>());
+            attr.Add(attrName, new List<float>());
             for (int j = 1; j <= numNode; j++)
             {
                 string v = lines[i * (numNode + 1) + j + 2].Trim();
-                attr[attrName].Add(int.Parse(v));
+                attr[attrName].Add(float.Parse(v));
             }
         }
         XLinspace = new List<float>(numNode);
@@ -90,10 +89,10 @@ public class StackedBarDraw : MonoBehaviour
     private void ProcessData()
     {
         if (data == null && attr == null) return;
-        int largest = 0;
+        float largest = 0;
         for (int i = 0; i < numNode; i++)
         {
-            int total = 0;
+            float total = 0;
             foreach (string s in attr.Keys)
             {
                 total += attr[s][i];
@@ -144,7 +143,7 @@ public class StackedBarDraw : MonoBehaviour
                     bar.transform.parent = view.transform;
                     bar.transform.localPosition = new Vector3(XLinspace[i], val / (StepL * StepC), 0);
                     val += attr[s][i];
-                    bar.transform.localScale = new Vector3(BarWrap.transform.localScale.x, (float)attr[s][i] / (StepL * StepC), BarWrap.transform.localScale.z);
+                    bar.transform.localScale = new Vector3(1f / numNode, (float)attr[s][i] / (StepL * StepC), BarWrap.transform.localScale.z);
                     bar.transform.GetChild(0).GetComponent<MeshRenderer>().material = materials[idx];
                     bar.SetActive(true);
                     idx++;
