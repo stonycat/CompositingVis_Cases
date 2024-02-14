@@ -7,6 +7,7 @@ public class PositionWatcher : MonoBehaviour
 {
 
     public Transform handleXWatch;
+    public Transform scatterplotVisParent;
     
     public UnityEvent<Transform> onPositionChange1;
     public UnityEvent<Transform> onPositionChange2;
@@ -24,47 +25,27 @@ public class PositionWatcher : MonoBehaviour
     void Update()
     {
         //Debug.Log("handle positionX:" + handleXWatch.position.x);
-
-        //listenYMove();
-
         listenXMove();
         
     }
 
     public void listenXMove()
     {
-        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.05f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.6f)
+        Vector3 localPosition = scatterplotVisParent.InverseTransformPoint(handleXWatch.position);
+        if (Mathf.Abs(localPosition.x) > 0.05f && Mathf.Abs(localPosition.x) < 0.4f)
         {
             onPositionChange1.Invoke(handleXWatch);
         }
 
-        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.4f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.9f)
+        if (Mathf.Abs(localPosition.x) > 0.4f && Mathf.Abs(localPosition.x) < 0.8f)
         {
             onPositionChange2.Invoke(handleXWatch);
         }
 
-        if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.8f)
+        if (Mathf.Abs(localPosition.x) > 0.8f)
         {
             onPositionChange3.Invoke(handleXWatch);
         }
     }
 
-
-    //public void listenYMove()
-    //{
-    //    if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.1f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.6f)
-    //    {
-    //        onPositionChange1.Invoke(handleXWatch);
-    //    }
-
-    //    if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.3f && Vector3.Distance(lastPosition, handleXWatch.position) < 0.9f)
-    //    {
-    //        onPositionChange2.Invoke(handleXWatch);
-    //    }
-
-    //    //if (Vector3.Distance(lastPosition, handleXWatch.position) > 0.8f)
-    //    //{
-    //    //    onPositionChange3.Invoke(handleXWatch);
-    //    //}
-    //}
 }

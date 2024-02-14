@@ -12,8 +12,8 @@ using static Zinnia.Data.Operation.Extraction.TransformDirectionExtractor;
 public class CreateSM_Partition : MonoBehaviour
 {
 
-    public LinearDriveFacade InteractHandleX;
-    public Transform HandleX;
+    public LinearDriveFacade InteractHandle;
+    public Transform Handle;
     public VRVisualisation OriginVisualisation;
 
     //public float startPartition;
@@ -29,8 +29,8 @@ public class CreateSM_Partition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Intial HandleX position" + HandleX.position.x);
-
+        //Debug.Log("Intial HandleX position" + Handle.position.x);
+        Debug.Log("Intial HandleY position" + Handle.position.y);
 
 
     }
@@ -44,23 +44,23 @@ public class CreateSM_Partition : MonoBehaviour
     public void partitionVis0()
     {
         //OriginVisualisation.doit(InteractHandleX.transform.position.x, 1.0f);
-        OriginVisualisation.DataScalingEventPartition0(InteractHandleX, HandleX.position.x);
+        OriginVisualisation.DataScalingEventPartition0(InteractHandle, Handle.position.x);
 
     }
     public void partitionVis01()
     {
-        OriginVisualisation.DataScalingEventPartition01(InteractHandleX, HandleX.position.x);
+        OriginVisualisation.DataScalingEventPartition01(InteractHandle, Handle.position.x);
     }
     public void partitionVis02()
     {
-        OriginVisualisation.DataScalingEventPartition02(InteractHandleX, HandleX.position.x);
+        OriginVisualisation.DataScalingEventPartition02(InteractHandle, Handle.position.x);
     }
 
     //Y update Data
     public void partitionVisY0()
     {
         //OriginVisualisation.doit(InteractHandleX.transform.position.x, 1.0f);
-        OriginVisualisation.DataScalingEventPartitionY0(InteractHandleX, HandleX.position.x);
+        OriginVisualisation.DataScalingEventPartitionY0(InteractHandle, Handle.position.y);
 
     }
 

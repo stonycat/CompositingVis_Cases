@@ -258,10 +258,10 @@ namespace IATK
 
 
         //Y
-        public void DataScalingEventPartitionY0(LinearDriveFacade linerJointFacade, float updateX)
+        public void DataScalingEventPartitionY0(LinearDriveFacade linerJointFacade, float updateY)
         {
             //updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
-            yDimension.minScale = 1.0f - updateX;
+            yDimension.minScale = 1.0f - updateY;
             yDimension.maxScale = 1.0f;
             //Debug.Log("YHandle: " + updateX + "Scatter0YMinScale: " + xDimension.minScale);
             updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
