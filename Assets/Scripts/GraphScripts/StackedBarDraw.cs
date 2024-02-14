@@ -1,3 +1,4 @@
+using IATK;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ public class StackedBarDraw : MonoBehaviour
     public Material[] materials;
     public bool isStacked;
     public bool useDifferentMaterialEachBar;
+    public bool isMoving;
+    public GameObject MovingTarget;
     public Dictionary<string, List<float>> attr;
 
     private int numAttr;
@@ -174,6 +177,19 @@ public class StackedBarDraw : MonoBehaviour
         else
         {
 
+        }
+    }
+
+    public void AddBarMoveComponent(List<Transform> target)
+    {
+        GameObject view = transform.GetChild(2).gameObject;
+        Debug.Assert(target.Count + 1 == view.transform.childCount);
+        for (int i = 1; i < view.transform.childCount; i++)
+        {
+            GameObject BarWrap = view.transform.GetChild(i).gameObject;
+            BarMoveAnimation animation = BarWrap.AddComponent<BarMoveAnimation>();
+            animation.BarChart = this;
+            animation.TargetTransform = target[i - 1];
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Assets.Scripts.MonoBehaviors
 
     static public class RenderingSettings
     {
-        public static float MinZOffset = 0.0005f;
+        public static float MinZOffset = 0.005f;
     }
 
 }

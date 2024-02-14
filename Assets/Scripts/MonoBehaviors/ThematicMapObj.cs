@@ -20,8 +20,6 @@ namespace Assets.Scripts.MonoBehaviors
         public string PropName = "Area";
 
 
-        public GameObject trackObjInteractable;
-
         public List<MapSubRegionObj> SubRegionObjs;
 
         public Material MapBoundaryMaterial;
@@ -91,8 +89,7 @@ namespace Assets.Scripts.MonoBehaviors
         {
             //this.DrawMap($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
             // this.UpdateMapData($"{Settings.DataDir}{this.GeoName.ToString()}-Data-Test.csv");
-            trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
-            trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
+
             var defaultLineWidth = 0.0005f;
             var geoString = this.GeoName.ToString();
             if (this.GeoName == GeoName.US)

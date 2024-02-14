@@ -5,8 +5,9 @@ using UnityEngine;
 public class BarMoveAnimation : MonoBehaviour
 {
     public StackedBarDraw BarChart;
-    public GameObject Target;
-    // Start is called before the first frame update
+    public Transform TargetTransform;
+
+    // Start is called before the first frame update    
     void Start()
     {
         
@@ -17,4 +18,6 @@ public class BarMoveAnimation : MonoBehaviour
     {
         
     }
+
+
 }

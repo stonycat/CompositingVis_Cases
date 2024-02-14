@@ -36,31 +36,16 @@ public class Node : MonoBehaviour
         nodeTouchColor = new Color(nodeColor.r, 12, nodeColor.b, 0.3f);
         nodeInColor = nodeColor;
         nodeInColor.a = 0.3f;
-        //transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
-        //transform.GetChild(0).gameObject.SetActive(false);
-        //transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
-
-        //for (int i = 0; i < connected_nodes.Count; i++) 
-        //{
-        //    Node node = connected_nodes[i];
-        //    AddEdge(node);
-        //    AddAttrForce(node, 1);
-        //    node.AddAttrForce(GetComponent<Node>(), 1);
-        //}
-        //nodeObj.transform.LookAt(Vector3.up);
     }
     private void FixedUpdate()
     {
         foreach (SpringJoint sj in joints)
         {
-            //int i = 0;
-            //SpringJoint sj = joints[i];
             GameObject target = sj.connectedBody.gameObject;
             Node n = GetComponent<Node>();
             Node m = target.GetComponent<Node>();
             n.AddAttrForce(m, 0.001f);
             m.AddAttrForce(n, 0.001f);
-            //i++;
         }
     }
 
@@ -109,7 +94,6 @@ public class Node : MonoBehaviour
         Debug.Log(other.name + " " + other.tag);
         if (other.tag == "HandCollider" && collided)
         {
-            Debug.Log(name + " enlarged");
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             GetComponent<Rigidbody>().mass = 3f;
         }
