@@ -1,39 +1,55 @@
+using Assets.Scripts.MonoBehaviors;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-
     public GameObject trackObjInteractable;
+    public StackedBarDraw trackedBarChart;
+    public ThematicMapObj mapObj;
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Assert(mapObj != null);
+    }
+
+    public void init(Dictionary<string, List<float>> barChartData)
+    {
         List<Transform> list = new List<Transform>();
         Transform map = transform.GetChild(0).GetChild(1).GetChild(0);
-        for (int i = 0; i < map.childCount; i++)
+        foreach (string s in barChartData.Keys)
         {
-            list.Add(map.GetChild(i));
-            Debug.Log(map.GetChild(i).GetChild(0).GetChild(0).position);
+            Transform region = map.transform.Find(s);
+            Debug.Assert(region != null);
+            list.Add(region);
         }
-        trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
-        trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
-        trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().AddBarMoveComponent(list);
+        trackedBarChart = trackObjInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>();
+        trackedBarChart.MinX = -0.54f;
+        trackedBarChart.MaxX = 0.46f;
+        trackedBarChart.LoadingFromDict(barChartData);
+        trackedBarChart.CreateChart();
+        trackedBarChart.AddBarMoveComponent(list);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(GetComponent<InteractableTest>().interactable.IsGrabbed);
         
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        ShowPreview();
+        Debug.Log("Map grabbed");
         if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
         {
             return;
         }
-        ShowPreview();
+        trackedBarChart.Compose();
+        mapObj.SetLabelHight(trackedBarChart.barHeights);
+        //GetComponent<BoxCollider>().isTrigger = true;
     }
 
     private void OnCollisionExit(Collision collision)

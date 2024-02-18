@@ -12,6 +12,7 @@ public class InteractableTest : MonoBehaviour
     public GameObject leftInteractor;
     public GameObject rightInteractor;
     public bool isMoving;
+    public float MovingThreshold;
     public GameObject currentAttachInteractor;
 
     private float velocity;
@@ -19,6 +20,7 @@ public class InteractableTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MovingThreshold = 1f;
         velocity = 0;
         previousPos = transform.position;
         interactable = GetComponent<InteractableFacade>();
@@ -28,7 +30,7 @@ public class InteractableTest : MonoBehaviour
     void Update()
     {
         velocity = (transform.position - previousPos).magnitude / Time.deltaTime;
-        isMoving = velocity > 1;
+        isMoving = velocity > MovingThreshold;
         currentAttachInteractor = (leftInteractor.GetComponent<InteractorFacade>().GrabbedObjects.Count > 0) ? leftInteractor : (rightInteractor.GetComponent<InteractorFacade>().GrabbedObjects.Count > 0) ? rightInteractor : null;
         previousPos = transform.position;
         //if (!interactable.IsGrabbed) SetGrabOffset(2);

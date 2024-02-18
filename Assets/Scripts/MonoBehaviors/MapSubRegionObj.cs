@@ -93,8 +93,6 @@ namespace Assets.Scripts.MonoBehaviors
 
         void Start()
         {
-            transform.GetChild(0).gameObject.SetActive(false);
-            //transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
         }
 
         void Update()

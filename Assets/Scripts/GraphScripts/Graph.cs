@@ -33,6 +33,8 @@ public class Graph : MonoBehaviour
         closestNodeListener.OnVariableChange += ClosestNodeListener_OnVariableChange;
         minDistanceListener = new MinDistanceListener();
         minDistanceListener.OnVariableChange += updateNodes;
+        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MaxX = 0.54f;
+        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MinX = -0.44f;
         trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
         LoadGMLFromFile(file);
         trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
