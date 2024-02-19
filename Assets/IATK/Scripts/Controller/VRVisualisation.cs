@@ -27,11 +27,11 @@ namespace IATK
             if (axes == null) return;
 
             //cancel due to set handle
-            //foreach (Axis axis in axes)
-            //{
-            //    //ConfigureHandle(axis, "MinAxisHandle", false);
-            //    //ConfigureHandle(axis, "MaxAxisHandle", true);
-            //}
+            foreach (Axis axis in axes)
+            {
+                ConfigureHandle(axis, "MinAxisHandle", false);
+                ConfigureHandle(axis, "MaxAxisHandle", true);
+            }
         }
 
         void Update()
@@ -235,25 +235,55 @@ namespace IATK
         /// </summary>
         /// <param name="linerJointFacade"></param>
         /// <param name="updateX"></param>
-        public void DataScalingEventPartition0(LinearDriveFacade linerJointFacade, float updateX)
+        public void DataScalingEventPartition0(LinearDriveFacade linerJointFacade, float updateX, VRVisualisation Vis)
         {
-            //updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            
             xDimension.minScale = 0.0f;
-            xDimension.maxScale = -0.5714f * updateX + 1.1429f;
-            Debug.Log("XHandle: " + updateX + "Scatter0MaxScale: " + xDimension.maxScale);
-            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            xDimension.maxScale = -0.842f * updateX + 1.0f;
+            //Debug.Log("XHandle: " + updateX + "Scatter0MaxScale: " + xDimension.maxScale);
+            Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
         }
-        public void DataScalingEventPartition01(LinearDriveFacade linerJointFacade, float updateX)
+        public void DataScalingEventPartition01(LinearDriveFacade linerJointFacade, float updateX, VRVisualisation Vis)
         {
-            xDimension.minScale = -0.3571f * updateX + 0.8571f;
-            xDimension.maxScale = -0.7143f * updateX + 1.5714f;
-            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            //Debug.Log("updateX:" + updateX);
+            if (updateX > 0.01f && updateX < 0.35f)
+            {
+                xDimension.minScale = 1.61f * updateX - 0.016f;
+                xDimension.maxScale = 1.61f * updateX + 0.484f;
+                Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            }
+            else if(updateX > 0.35f && updateX< 0.65f)
+            {
+                xDimension.minScale = -0.567f * updateX + 0.698f;
+                xDimension.maxScale = -1.1f * updateX + 1.385f;
+                Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            }
+            else if (updateX > 0.65f)
+            {
+                xDimension.minScale = -0.333f * updateX + 0.547f;
+                xDimension.maxScale = -0.708f * updateX + 1.13f;
+                Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            }
         }
-        public void DataScalingEventPartition02(LinearDriveFacade linerJointFacade, float updateX)
+        
+        //public void DataScalingEventPartition01Two(LinearDriveFacade linerJointFacade, float updateX, VRVisualisation Vis)
+        //{
+        //    xDimension.minScale = -0.567f * updateX + 0.698f;
+        //    xDimension.maxScale = -1.1f * updateX + 1.385f;
+        //    Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+        //}
+
+        public void DataScalingEventPartition02(LinearDriveFacade linerJointFacade, float updateX, VRVisualisation Vis)
         {
             xDimension.minScale = -0.3333f * updateX + 1.0f;
             xDimension.maxScale = -0.25f * updateX + 1.34f;
-            updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+            Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
+        }
+        public void DataScalingEventPartition03(LinearDriveFacade linerJointFacade, float updateX, VRVisualisation Vis)
+        {
+            yDimension.minScale = -0.3333f * updateX + 1.0f;
+            yDimension.maxScale = -0.25f * updateX + 1.34f;
+            Vis.updateViewProperties(AbstractVisualisation.PropertyType.Scaling);
         }
 
 

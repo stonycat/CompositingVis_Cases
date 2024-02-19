@@ -309,8 +309,9 @@ namespace IATK
         private bool IsAttributeDiscrete()
         {
             var type = dataSource[AttributeFilter.Attribute].MetaData.type;
-            
+
             return (type == DataType.String || type == DataType.Date);
+            
         }
         
         private float GetAxisTickLabelPosition(int labelIndex, int numLabels)

@@ -23,23 +23,21 @@ public class PositionWatcherY : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("handle positionX:" + handleXWatch.position.x);
+        //Debug.Log("distanceHandleYVis:" + Vector3.Distance(lastPosition, handleYWatch.position));
 
         listenYMove();
         
     }
 
-
-
-
     public void listenYMove()
     {
-        if (Vector3.Distance(lastPosition, handleYWatch.position) > 0.1f && Vector3.Distance(lastPosition, handleYWatch.position) < 0.6f)
+        
+        if (Vector3.Distance(lastPosition, handleYWatch.position) > 0.05f && Vector3.Distance(lastPosition, handleYWatch.position) < 0.35f)
         {
             onPositionChange1.Invoke(handleYWatch);
         }
 
-        if (Vector3.Distance(lastPosition, handleYWatch.position) > 0.3f && Vector3.Distance(lastPosition, handleYWatch.position) < 0.9f)
+        if (Vector3.Distance(lastPosition, handleYWatch.position) > 0.35f && Vector3.Distance(lastPosition, handleYWatch.position) < 0.65f)
         {
             onPositionChange2.Invoke(handleYWatch);
         }
