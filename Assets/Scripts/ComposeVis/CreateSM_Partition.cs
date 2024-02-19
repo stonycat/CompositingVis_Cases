@@ -55,18 +55,11 @@ public class CreateSM_Partition : MonoBehaviour
 
     }
     //Scatterplot01
-    public void partitionVis01One()
+    public void partitionVis01()
     {
         OriginVisualisation.DataScalingEventPartition01(InteractHandle, disCompute, OriginVisualisation);
     }
-    //public void partitionVis01Two()
-    //{
-    //    OriginVisualisation.DataScalingEventPartition01One(InteractHandle, disCompute, OriginVisualisation);
-    //}
-    //public void partitionVis01Three()
-    //{
-    //    OriginVisualisation.DataScalingEventPartition01One(InteractHandle, disCompute, OriginVisualisation);
-    //}
+    
 
 
     //
