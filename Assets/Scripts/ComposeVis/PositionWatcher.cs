@@ -5,47 +5,44 @@ using UnityEngine.Events;
 
 public class PositionWatcher : MonoBehaviour
 {
-   
-    public Transform handleXWatch;
     public Transform scatterplotVisParent;
+    public Transform HandleX;
     private float initialRelativeDistance;
+
+    [HideInInspector]
+    public float dis;
+
+    public Transform handleXWatch;
     public UnityEvent<Transform> onPositionChange1;
     public UnityEvent<Transform> onPositionChange2;
     public UnityEvent<Transform> onPositionChange3;
-    public Vector3 lastPosition;
+    //public Vector3 lastPosition;
     // Start is called before the first frame update
     void Start()
     {
-        lastPosition = handleXWatch.position;
-        //Debug.Log("initial X:" + lastPosition.x);
-        //Debug.Log("initial Y:" + lastPosition.y);
-        initialRelativeDistance = Vector3.Distance(handleXWatch.position, scatterplotVisParent.position);
+        //lastPosition = HandleX.position;
+        initialRelativeDistance = Vector3.Distance(HandleX.position, scatterplotVisParent.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("handle positionX:" + handleXWatch.position.x);
+        //
         //listenXMove();
-        float currentRelativeDistance = Vector3.Distance(handleXWatch.position, scatterplotVisParent.position);
-        float dis = Mathf.Abs(currentRelativeDistance - initialRelativeDistance);
-        //if (Mathf.Abs(currentRelativeDistance - initialRelativeDistance) > 0.01f)
-        //{
-        //    Debug.Log("Relative Distance has changed");
-        //}
-        //else
-        //{
-        //    Debug.Log("Relative Distance remains unchanged");
-        //}
-        if (dis > 0.01f && dis < 0.35f)
+        float currentRelativeDistance = Vector3.Distance(HandleX.position, scatterplotVisParent.position);
+        dis = Mathf.Abs(currentRelativeDistance - initialRelativeDistance);
+        //Debug.Log("handle watcher:" + dis);
+
+
+        if (dis > 0.01f && dis < 0.31f)
         {
             onPositionChange1.Invoke(handleXWatch);
         }
-        if (dis > 0.35f && dis < 0.65f)
+        if (dis > 0.31f && dis < 0.6f)
         {
             onPositionChange2.Invoke(handleXWatch);
         }
-        if (dis > 0.65f)
+        if (dis > 0.6f && dis < 0.89f)
         {
             onPositionChange3.Invoke(handleXWatch);
         }

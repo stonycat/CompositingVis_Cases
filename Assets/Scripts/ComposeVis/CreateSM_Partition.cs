@@ -13,73 +13,87 @@ public class CreateSM_Partition : MonoBehaviour
 {
 
     public LinearDriveFacade InteractHandle;
-    public Transform Handle;
-    public Transform scatterplotVisParent;
-    private float initialRelativeDistance;
-
+    //public Transform Handle;
+    //public Transform scatterplotVisParent;
     public VRVisualisation OriginVisualisation;
-    private float disCompute;
-    //public float startPartition;
-    //public float endPartition;
-    //public AbstractVisualisation AbXvis;
-    //public Axis AbXaxis;
-    //public DimensionFilter dim;
-    //private AttributeFilter attribute1;
 
-    //private Vector3 lastPositionX;
-    //public UnityEvent<Transform> onPositionChange1;
+    [HideInInspector]
+    public float valueFromWatcherX;
+    [HideInInspector]
+    public float valueFromWatcherY;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("Intial HandleX position" + Handle.position.x);
-        //Debug.Log("Intial HandleY position" + Handle.position.y);
-        initialRelativeDistance = Vector3.Distance(Handle.position, scatterplotVisParent.position);
-
+        
+           
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Intial HandleX move" + HandleX.position.x);
-        float currentRelativeDistance = Vector3.Distance(Handle.position, scatterplotVisParent.position);
-        disCompute = Mathf.Abs(currentRelativeDistance - initialRelativeDistance);
-        //Debug.Log(Mathf.Abs(currentRelativeDistance - initialRelativeDistance));
-        //Debug.Log("HandleX:" + disCompute);
+        valueFromWatcherX = FindObjectOfType<PositionWatcher>().dis;
+        valueFromWatcherY = FindObjectOfType<PositionWatcherY>().disY;
+        //Debug.Log(valueFromWatcher);
     }
     //scatterplot0 cut max
     //Scatterplot0
     public void partitionVis0()
     {
-        OriginVisualisation.DataScalingEventPartition0(InteractHandle, disCompute, OriginVisualisation);
+        OriginVisualisation.DataScalingEventPartition0(InteractHandle, valueFromWatcherX, valueFromWatcherY, OriginVisualisation);
 
     }
     //Scatterplot01
     public void partitionVis01()
     {
-        OriginVisualisation.DataScalingEventPartition01(InteractHandle, disCompute, OriginVisualisation);
+        OriginVisualisation.DataScalingEventPartition01(InteractHandle, valueFromWatcherX, valueFromWatcherY, OriginVisualisation);
     }
-    
-
 
     //
     public void partitionVis02()
     {
-        OriginVisualisation.DataScalingEventPartition02(InteractHandle, disCompute, OriginVisualisation);
+        OriginVisualisation.DataScalingEventPartition02(InteractHandle, valueFromWatcherX, valueFromWatcherY, OriginVisualisation);
     }
     public void partitionVis03()
     {
         //X
-        OriginVisualisation.DataScalingEventPartition02(InteractHandle, disCompute, OriginVisualisation);
+        OriginVisualisation.DataScalingEventPartition03(InteractHandle, valueFromWatcherX, valueFromWatcherY, OriginVisualisation);
     }
 
 
-    //Y update Data
-    //public void partitionVisY0()
-    //{
-    //    //OriginVisualisation.doit(InteractHandleX.transform.position.x, 1.0f);
-    //    OriginVisualisation.DataScalingEventPartitionY0(InteractHandle, Handle.position.y);
+    //Y 1 11 12 13 update Data
+    public void partitionVisY1()
+    {
+        OriginVisualisation.DataScalingEventPartitionY1(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
+    public void partitionVisY11()
+    {
+        OriginVisualisation.DataScalingEventPartitionY11(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
+    public void partitionVisY12()
+    {
+        OriginVisualisation.DataScalingEventPartitionY12(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
+    public void partitionVisY13()
+    {
+        OriginVisualisation.DataScalingEventPartitionY13(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
 
-    //}
-
+    //Y 2 21 22 23 update Data
+    public void partitionVisY2()
+    {
+        OriginVisualisation.DataScalingEventPartitionY2(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
+    public void partitionVisY21()
+    {
+        OriginVisualisation.DataScalingEventPartitionY21(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
+    public void partitionVisY22()
+    {
+        OriginVisualisation.DataScalingEventPartitionY22(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
+    public void partitionVisY23()
+    {
+        OriginVisualisation.DataScalingEventPartitionY23(InteractHandle, valueFromWatcherY, OriginVisualisation);
+    }
 }
