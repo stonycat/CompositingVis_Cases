@@ -5,10 +5,12 @@ using Tilia.Interactions.Interactables.Interactables.Grab.Action;
 using Tilia.Interactions.Interactables.Interactors;
 using UnityEditor;
 using UnityEngine;
+using Zinnia.Data.Type;
 
 public class InteractableTest : MonoBehaviour
 {
     public InteractableFacade interactable;
+    public IsGrabbedListener grabListener;
     public GameObject leftInteractor;
     public GameObject rightInteractor;
     public bool isMoving;
@@ -24,6 +26,8 @@ public class InteractableTest : MonoBehaviour
         velocity = 0;
         previousPos = transform.position;
         interactable = GetComponent<InteractableFacade>();
+        grabListener = new IsGrabbedListener();
+        grabListener.onVariableChange += GrabStatusChange;
     }
 
     // Update is called once per frame
@@ -33,7 +37,13 @@ public class InteractableTest : MonoBehaviour
         isMoving = velocity > MovingThreshold;
         currentAttachInteractor = (leftInteractor.GetComponent<InteractorFacade>().GrabbedObjects.Count > 0) ? leftInteractor : (rightInteractor.GetComponent<InteractorFacade>().GrabbedObjects.Count > 0) ? rightInteractor : null;
         previousPos = transform.position;
-        //if (!interactable.IsGrabbed) SetGrabOffset(2);
+        //if (interactable != null) grabListener.IsGrabbed = interactable.IsGrabbed;
+    }
+
+    private void GrabStatusChange()
+    {
+        Debug.Log("Listener triggered");
+        //SetGrabOffset(2);
     }
 
     public void SetGrabOffset(int option)

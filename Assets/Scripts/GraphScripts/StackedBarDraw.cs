@@ -290,7 +290,9 @@ public class StackedBarDraw : MonoBehaviour
         {
             animation.SetToBarChartView(1f / numAttr, barHeights[animation.name], barXPosition[animation.name]);
         }
-        interactable.GetComponent<InteractableTest>().SetGrabOffset(0);
+        //interactable.GetComponent<InteractableTest>().SetGrabOffset(0);
+        interactable.transform.position = currentInteractor.transform.position;
+        interactable.transform.rotation = Quaternion.identity;
         interactable.GetComponent<InteractableTest>().interactable.Grab(currentInteractor);
     }
 }

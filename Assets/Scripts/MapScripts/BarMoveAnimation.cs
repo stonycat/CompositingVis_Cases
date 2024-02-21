@@ -47,19 +47,43 @@ public class BarMoveAnimation : MonoBehaviour
         Vector3 newLocalPosition = new Vector3(barXPosition, 0, 0);
         Quaternion newRotation = Quaternion.Euler(0, 0, 0);
         StartCoroutine(AnimateTransform(BarChart.transform.GetChild(2), newLocalPosition, originalLocalScale, newRotation, 0.5f, false));
-        //transform.parent = BarChart.transform.GetChild(2);
-        //transform.localPosition = newLocalPosition;
-        //transform.localScale = originalLocalScale;
-        //transform.localRotation = newRotation;
-        //boxCollider.enabled = false;
-        //inMap = false;
-        //MeshRenderer meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
-        //Color color = meshRenderer.material.color;
-        //color.a = 1f;
-        //meshRenderer.material.SetColor("_Color", color);
     }
 
-    private IEnumerator AnimateTransform(Transform newParent, Vector3 newLocalPosition, Vector3 newLocalScale, Quaternion newRotation, float duration, bool isCompose)
+    private IEnumerator AnimateTransform(Transform newParent, Vector3 newLocalPosition, Vector3 newLocalScale, Quaternion newLocalRotation, float duration, bool isCompose)
+    {
+        float time = 0;
+        transform.parent = newParent;
+        Vector3 originalLocalPosition = transform.localPosition;
+        Vector3 currentLocalScale = transform.localScale;
+        Quaternion originalRotation = transform.localRotation;
+        if (!isCompose)
+        {
+            boxCollider.enabled = false;
+            inMap = false;
+        }
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            transform.localPosition = Vector3.Lerp(originalLocalPosition, newLocalPosition, time / duration);
+            transform.localScale = Vector3.Lerp(currentLocalScale, newLocalScale, time / duration);
+            transform.localRotation = Quaternion.Lerp(originalRotation, newLocalRotation, time / duration);
+            yield return null;
+        }
+        if (isCompose)
+        {
+            boxCollider.enabled = true;
+            inMap = true;
+        }
+        if (!isCompose)
+        {
+            MeshRenderer meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+            Color color = meshRenderer.material.color;
+            color.a = 1f;
+            meshRenderer.material.SetColor("_Color", color);
+        }
+    }
+
+    private IEnumerator AnimateTransformGlobally(Vector3 newPosition, Vector3 newLocalScale, Quaternion newRotation, float duration, bool isCompose)
     {
         float time = 0;
         transform.parent = newParent;

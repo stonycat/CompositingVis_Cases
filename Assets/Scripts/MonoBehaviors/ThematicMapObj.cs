@@ -92,7 +92,7 @@ namespace Assets.Scripts.MonoBehaviors
         {
             this.DrawMap($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
             // this.UpdateMapData($"{Settings.DataDir}{this.GeoName.ToString()}-Data-Test.csv");
-            transform.parent.parent.parent.GetComponent<Map>().init(barChartData);
+            transform.parent.parent.parent.GetComponent<Map>().Init(barChartData);
             
         }
 

@@ -91,7 +91,6 @@ public class Node : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + " " + other.tag);
         if (other.tag == "HandCollider" && collided)
         {
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
@@ -169,10 +168,6 @@ public class Node : MonoBehaviour
     {
         if (collided) return;
         meshRenderer.material.SetColor("_Color", nodeInColor);
-
-        //subObj.transform.LookAt(subObj.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
-        //subObj.transform.LookAt(nodeObj.transform.rotation * Vector3.up);
-        //subObj.GetComponent<BoxCollider>().enabled = false;
         subObj.SetActive(true);
         collided = true;
     }
@@ -182,6 +177,8 @@ public class Node : MonoBehaviour
         GameObject trackedObj = trackedObjTransform.GetChild(0).GetChild(1).gameObject;
         subObj = Instantiate(trackedObj, trackedObjTransform.position, trackedObjTransform.rotation);
         StackedBarDraw stackedBarDraw = subObj.GetComponent<StackedBarDraw>();
+        stackedBarDraw.MaxX = 0.56f;
+        stackedBarDraw.MinX = -0.44f;
         stackedBarDraw.attr = new Dictionary<string, List<float>>();
         stackedBarDraw.isStacked = false;
         stackedBarDraw.useDifferentMaterialEachBar = true;

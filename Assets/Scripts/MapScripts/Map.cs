@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
         Debug.Assert(mapObj != null);
     }
 
-    public void init(Dictionary<string, List<float>> barChartData)
+    public void Init(Dictionary<string, List<float>> barChartData)
     {
         List<Transform> list = new List<Transform>();
         Transform map = transform.GetChild(0).GetChild(1).GetChild(0);
@@ -35,14 +35,12 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GetComponent<InteractableTest>().interactable.IsGrabbed);
         
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         ShowPreview();
-        Debug.Log("Map grabbed");
         if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
         {
             return;

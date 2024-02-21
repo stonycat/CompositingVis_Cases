@@ -33,8 +33,8 @@ public class Graph : MonoBehaviour
         closestNodeListener.OnVariableChange += ClosestNodeListener_OnVariableChange;
         minDistanceListener = new MinDistanceListener();
         minDistanceListener.OnVariableChange += updateNodes;
-        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MaxX = 0.54f;
-        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MinX = -0.44f;
+        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MaxX = 0.46f;
+        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MinX = -0.54f;
         trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
         LoadGMLFromFile(file);
         trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
@@ -71,7 +71,6 @@ public class Graph : MonoBehaviour
             {
                 nodeList[i].AddRepForce(nodeList[j]);
                 nodeList[j].AddRepForce(nodeList[i]);
-                //Debug.Log("rep");
             }
         }
     }
@@ -122,7 +121,8 @@ public class Graph : MonoBehaviour
             nodes[grabNode].GetComponent<SphereCollider>().enabled = false;
             grabNodeIdx = grabNode;
             trackedObj.SetActive(true);
-            trackedObj.GetComponent<InteractableTest>().SetGrabOffset(0);
+            //trackedObj.GetComponent<InteractableTest>().SetGrabOffset(0);
+            trackedObj.transform.position = controller.transform.position;
             trackedObj.GetComponent<InteractableTest>().interactable.Grab(controller);
             StartCoroutine(EnableCollider());
         }
