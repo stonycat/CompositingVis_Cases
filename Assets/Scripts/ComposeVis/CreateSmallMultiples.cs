@@ -23,19 +23,19 @@ public class CreateSmallMultiples : MonoBehaviour
     public Visualisation Xvis01;
     public Visualisation Xvis02;
     public Visualisation Xvis03;
-    public Visualisation Xvis04;
+    //public Visualisation Xvis04;
 
     public Visualisation Xvis1;
     public Visualisation Xvis11;
     public Visualisation Xvis12;
     public Visualisation Xvis13;
-    public Visualisation Xvis14;
+    //public Visualisation Xvis14;
 
     public Visualisation Xvis2;
     public Visualisation Xvis21;
     public Visualisation Xvis22;
     public Visualisation Xvis23;
-    public Visualisation Xvis24;
+    //public Visualisation Xvis24;
 
     private Vector3 lastPositionX;
     private Vector3 lastPositionY;
@@ -45,24 +45,22 @@ public class CreateSmallMultiples : MonoBehaviour
         Xvis01.SetActive(false);
         Xvis02.SetActive(false);
         Xvis03.SetActive(false);
-        Xvis04.SetActive(false);
+        //Xvis04.SetActive(false);
 
         Xvis1.SetActive(false);
         Xvis11.SetActive(false);
         Xvis12.SetActive(false);
         Xvis13.SetActive(false);
-        Xvis14.SetActive(false);
+        //Xvis14.SetActive(false);
 
         Xvis2.SetActive(false);
         Xvis21.SetActive(false);
         Xvis22.SetActive(false);
         Xvis23.SetActive(false);
-        Xvis24.SetActive(false);
+        //Xvis24.SetActive(false);
 
         lastPositionX = HandleX.position;
         lastPositionY = HandleY.position;
-        //Debug.Log("initial position X:" + HandleX.position.x);
-        //Debug.Log("initial position Y:" + HandleY.position.y);
 
         
     }
@@ -71,21 +69,6 @@ public class CreateSmallMultiples : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (lastPositionX != HandleX.position)
-        //{
-        //    //Debug.Log("X handle moved:" + HandleX.position.x);
-        //    lastPositionX = HandleX.position;
-        //}
-        //if (lastPositionY != HandleY.position)
-        //{
-        //    //Debug.Log("Y handle moved:" + HandleY.position.y);
-        //    lastPositionY = HandleY.position;
-        //}
-        //show x repetition control movement
-        //DetectXControlVis(HandleX);
-        //DetectYControlVis(HandleY);
-
-
         // Bimanual interaction
         biExtendVis(HandleX, HandleY, InteractableHandleX, InteractableHandleY);
 
@@ -100,7 +83,34 @@ public class CreateSmallMultiples : MonoBehaviour
                 Xvis01.SetActive(true);
                 Xvis02.SetActive(true);
                 Xvis03.SetActive(true);
-                Xvis04.SetActive(true);
+                //Xvis04.SetActive(true);
+
+                Xvis1.SetActive(true);
+                Xvis11.SetActive(true);
+                Xvis12.SetActive(true);
+                Xvis13.SetActive(true);
+
+                Xvis2.SetActive(true);
+                Xvis21.SetActive(true);
+                Xvis22.SetActive(true);
+                Xvis23.SetActive(true);
+            }
+            else
+            {
+                Xvis01.SetActive(false);
+                Xvis02.SetActive(false);
+                Xvis03.SetActive(false);
+                //Xvis04.SetActive(true);
+
+                Xvis1.SetActive(false);
+                Xvis11.SetActive(false);
+                Xvis12.SetActive(false);
+                Xvis13.SetActive(false);
+
+                Xvis2.SetActive(false);
+                Xvis21.SetActive(false);
+                Xvis22.SetActive(false);
+                Xvis23.SetActive(false);
             }
         }
 
