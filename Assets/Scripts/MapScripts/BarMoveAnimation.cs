@@ -83,40 +83,6 @@ public class BarMoveAnimation : MonoBehaviour
         }
     }
 
-    private IEnumerator AnimateTransformGlobally(Vector3 newPosition, Vector3 newLocalScale, Quaternion newRotation, float duration, bool isCompose)
-    {
-        float time = 0;
-        transform.parent = newParent;
-        Vector3 originalLocalPosition = transform.localPosition;
-        Vector3 currentLocalScale = transform.localScale;
-        Quaternion originalRotation = transform.localRotation;
-        if (!isCompose)
-        {
-            boxCollider.enabled = false;
-            inMap = false;
-        }
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            transform.localPosition = Vector3.Lerp(originalLocalPosition, newLocalPosition, time / duration);
-            transform.localScale = Vector3.Lerp(currentLocalScale, newLocalScale, time / duration);
-            transform.localRotation = Quaternion.Lerp(originalRotation, newRotation, time / duration);
-            yield return null;
-        }
-        if (isCompose)
-        {
-            boxCollider.enabled = true;
-            inMap = true;
-        }
-        if (!isCompose)
-        {
-            MeshRenderer meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
-            Color color = meshRenderer.material.color;
-            color.a = 1f;
-            meshRenderer.material.SetColor("_Color", color);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("trigger " + name);
