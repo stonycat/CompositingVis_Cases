@@ -45,19 +45,17 @@ public class CreateSmallMultiples : MonoBehaviour
         Xvis01.SetActive(false);
         Xvis02.SetActive(false);
         Xvis03.SetActive(false);
-        //Xvis04.SetActive(false);
 
         Xvis1.SetActive(false);
         Xvis11.SetActive(false);
         Xvis12.SetActive(false);
         Xvis13.SetActive(false);
-        //Xvis14.SetActive(false);
 
         Xvis2.SetActive(false);
         Xvis21.SetActive(false);
         Xvis22.SetActive(false);
         Xvis23.SetActive(false);
-        //Xvis24.SetActive(false);
+
 
         lastPositionX = HandleX.position;
         lastPositionY = HandleY.position;
