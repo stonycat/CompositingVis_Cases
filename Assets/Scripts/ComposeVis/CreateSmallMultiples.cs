@@ -69,14 +69,14 @@ public class CreateSmallMultiples : MonoBehaviour
     {
         // Bimanual interaction
         biExtendVis(HandleX, HandleY, InteractableHandleX, InteractableHandleY);
-
+        Debug.Log("");
     }
 
     private void biExtendVis(Transform HandleX, Transform HandleY, InteractableFacade InteractableHandleX, InteractableFacade InteractableHandleY)
     {
         if (InteractableHandleX.IsGrabbed && InteractableHandleY.IsGrabbed)
         {
-            if (HandleX.position.x > 0.5f && HandleY.position.y < 0.2f)
+            if (HandleX.position.x > 0.2f && HandleY.position.y < 0.2f)
             {
                 Xvis01.SetActive(true);
                 Xvis02.SetActive(true);

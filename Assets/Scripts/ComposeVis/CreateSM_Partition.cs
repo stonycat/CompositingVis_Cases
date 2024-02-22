@@ -48,7 +48,6 @@ public class CreateSM_Partition : MonoBehaviour
     {
         OriginVisualisation.DataScalingEventPartition01(InteractHandle, valueFromWatcherX, valueFromWatcherY, OriginVisualisation);
     }
-
     //
     public void partitionVis02()
     {
