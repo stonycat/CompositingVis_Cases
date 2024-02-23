@@ -42,10 +42,6 @@ public class PositionWatcherY : MonoBehaviour
         {
             onPositionChange2.Invoke(handleYWatch);
         }
-        //if (disY > 0.6f && disY < 0.89f)
-        //{
-        //    onPositionChange3.Invoke(handleYWatch);
-        //}
     }
 
     //public void listenYMove()

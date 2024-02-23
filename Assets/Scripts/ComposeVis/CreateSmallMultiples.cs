@@ -15,10 +15,14 @@ public class CreateSmallMultiples : MonoBehaviour
 
     public InteractableFacade InteractableHandleX;
     public InteractableFacade InteractableHandleY;
+    public InteractableFacade WholeSmallMultiples;
+
 
     private bool isLeftGrabbedY = false;
     private bool isRightGrabbedX = false;
 
+
+    //public Visualisation Scatterplot0;
     // Small multiples preset 5x3
     public Visualisation Xvis01;
     public Visualisation Xvis02;
@@ -37,51 +41,66 @@ public class CreateSmallMultiples : MonoBehaviour
     public Visualisation Xvis23;
     //public Visualisation Xvis24;
 
-    private Vector3 lastPositionX;
-    private Vector3 lastPositionY;
+    //private Vector3 lastPositionX;
+    //private Vector3 lastPositionY;
+    public Transform originX;
+    public Transform originY;
+    private float initialRelativeDistanceX;
+    private float initialRelativeDistanceY;
+    private float absDistanceX;
+    private float absDistanceY;
+
     // Start is called before the first frame update
     void Start()
     {
-        Xvis01.SetActive(false);
-        Xvis02.SetActive(false);
-        Xvis03.SetActive(false);
+        //Xvis01.SetActive(false);
+        //Xvis02.SetActive(false);
+        //Xvis03.SetActive(false);
 
-        Xvis1.SetActive(false);
-        Xvis11.SetActive(false);
-        Xvis12.SetActive(false);
-        Xvis13.SetActive(false);
+        //Xvis1.SetActive(false);
+        //Xvis11.SetActive(false);
+        //Xvis12.SetActive(false);
+        //Xvis13.SetActive(false);
 
-        Xvis2.SetActive(false);
-        Xvis21.SetActive(false);
-        Xvis22.SetActive(false);
-        Xvis23.SetActive(false);
+        //Xvis2.SetActive(false);
+        //Xvis21.SetActive(false);
+        //Xvis22.SetActive(false);
+        //Xvis23.SetActive(false);
 
+        //lastPositionX = HandleX.position;
+        //lastPositionY = HandleY.position;
+        initialRelativeDistanceX = Vector3.Distance(HandleX.position, originX.position);
+        initialRelativeDistanceY = Vector3.Distance(HandleX.position, originY.position);
 
-        lastPositionX = HandleX.position;
-        lastPositionY = HandleY.position;
-
-        
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        float currentRelativeDistanceX = Vector3.Distance(HandleX.position, originX.position);
+        absDistanceX = Mathf.Abs(currentRelativeDistanceX - initialRelativeDistanceX);
+
+        float currentRelativeDistanceY = Vector3.Distance(HandleY.position, originY.position);
+        absDistanceY = Mathf.Abs(currentRelativeDistanceY - initialRelativeDistanceY);
+
         // Bimanual interaction
         biExtendVis(HandleX, HandleY, InteractableHandleX, InteractableHandleY);
-        Debug.Log("");
+        //Debug.Log("Scatterplot0 scale" + WholeSmallMultiples.transform.localScale);
+        //Debug.Log("absDistanceX and Y" + absDistanceX + absDistanceY);
+        //initial: 0.34, smallest: 0.13  largest: 1.22
+
     }
 
     private void biExtendVis(Transform HandleX, Transform HandleY, InteractableFacade InteractableHandleX, InteractableFacade InteractableHandleY)
     {
         if (InteractableHandleX.IsGrabbed && InteractableHandleY.IsGrabbed)
         {
-            if (HandleX.position.x > 0.2f && HandleY.position.y < 0.2f)
+            if (absDistanceX > 0.1f && absDistanceY > 0.1f)
             {
                 Xvis01.SetActive(true);
                 Xvis02.SetActive(true);
                 Xvis03.SetActive(true);
-                //Xvis04.SetActive(true);
 
                 Xvis1.SetActive(true);
                 Xvis11.SetActive(true);
@@ -93,23 +112,22 @@ public class CreateSmallMultiples : MonoBehaviour
                 Xvis22.SetActive(true);
                 Xvis23.SetActive(true);
             }
-            else
-            {
-                Xvis01.SetActive(false);
-                Xvis02.SetActive(false);
-                Xvis03.SetActive(false);
-                //Xvis04.SetActive(true);
+            //else
+            //{
+            //    Xvis01.SetActive(false);
+            //    Xvis02.SetActive(false);
+            //    Xvis03.SetActive(false);
 
-                Xvis1.SetActive(false);
-                Xvis11.SetActive(false);
-                Xvis12.SetActive(false);
-                Xvis13.SetActive(false);
+            //    Xvis1.SetActive(false);
+            //    Xvis11.SetActive(false);
+            //    Xvis12.SetActive(false);
+            //    Xvis13.SetActive(false);
 
-                Xvis2.SetActive(false);
-                Xvis21.SetActive(false);
-                Xvis22.SetActive(false);
-                Xvis23.SetActive(false);
-            }
+            //    Xvis2.SetActive(false);
+            //    Xvis21.SetActive(false);
+            //    Xvis22.SetActive(false);
+            //    Xvis23.SetActive(false);
+            //}
         }
 
        
