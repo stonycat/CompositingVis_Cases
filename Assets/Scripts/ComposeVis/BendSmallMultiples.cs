@@ -52,7 +52,7 @@ public class BendSmallMultiples : MonoBehaviour
     private Quaternion targetRightEulerAngles;
     private Quaternion targetMidLeftEulerAngles;
     private Quaternion targetMidRightEulerAngles;
-    private float duration = 6f;
+    private float duration = 4f;
     private float timeElapsed = 0f;
 
     // Start is called before the first frame update
@@ -63,11 +63,11 @@ public class BendSmallMultiples : MonoBehaviour
         RightInitalPosition = RightButton.transform.position.x;
         LeftInitalPosition = LeftButton.transform.position.x;
 
-        targetLeftEulerAngles = Quaternion.Euler(new Vector3(0, -35, 0));
-        targetRightEulerAngles = Quaternion.Euler(new Vector3(0, 35, 0));
+        targetLeftEulerAngles = Quaternion.Euler(new Vector3(0, -30, 0));
+        targetRightEulerAngles = Quaternion.Euler(new Vector3(0, 30, 0));
 
-        targetMidLeftEulerAngles = Quaternion.Euler(new Vector3(0, -10, 0));
-        targetMidRightEulerAngles = Quaternion.Euler(new Vector3(0, 10, 0));
+        //targetMidLeftEulerAngles = Quaternion.Euler(new Vector3(0, -10, 0));
+        //targetMidRightEulerAngles = Quaternion.Euler(new Vector3(0, 10, 0));
     }
 
     // Update is called once per frame
@@ -109,23 +109,22 @@ public class BendSmallMultiples : MonoBehaviour
                     //SmallMultiples02.transform.rotation = Quaternion.Lerp(SmallMultiples02.transform.rotation, targetMidRightEulerAngles, timeElapsed / duration);
                     SmallMultiples03.transform.rotation = Quaternion.Lerp(SmallMultiples03.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
 
-                    SmallMultiples1.transform.rotation = Quaternion.Slerp(SmallMultiples1.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
+                    SmallMultiples1.transform.rotation = Quaternion.Lerp(SmallMultiples1.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples11.transform.rotation = Quaternion.Slerp(SmallMultiples11.transform.rotation, targetMidLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples12.transform.rotation = Quaternion.Slerp(SmallMultiples12.transform.rotation, targetMidRightEulerAngles, timeElapsed / duration);
-                    SmallMultiples13.transform.rotation = Quaternion.Slerp(SmallMultiples13.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
+                    SmallMultiples13.transform.rotation = Quaternion.Lerp(SmallMultiples13.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
 
-                    SmallMultiples2.transform.rotation = Quaternion.Slerp(SmallMultiples2.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
+                    SmallMultiples2.transform.rotation = Quaternion.Lerp(SmallMultiples2.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples21.transform.rotation = Quaternion.Slerp(SmallMultiples21.transform.rotation, targetMidLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples22.transform.rotation = Quaternion.Slerp(SmallMultiples22.transform.rotation, targetMidRightEulerAngles, timeElapsed / duration);
-                    SmallMultiples23.transform.rotation = Quaternion.Slerp(SmallMultiples23.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
+                    SmallMultiples23.transform.rotation = Quaternion.Lerp(SmallMultiples23.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
 
                     timeElapsed += Time.deltaTime;
                 }
-                else
-                {
-                    LeftHand.SetActive(false);
-                    RightHand.SetActive(false);
-                }
+                
+                LeftHand.SetActive(false);
+                RightHand.SetActive(false);
+                
             }
         }       
     }
