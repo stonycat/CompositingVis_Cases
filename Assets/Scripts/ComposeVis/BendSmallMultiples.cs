@@ -104,20 +104,20 @@ public class BendSmallMultiples : MonoBehaviour
                     SmallMultiples23.transform.position = Vector3.Lerp(SmallMultiples23.transform.position, Target23.position, timeElapsed / duration);
 
                     //Rotate
-                    SmallMultiples0.transform.rotation = Quaternion.Lerp(SmallMultiples0.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
+                    SmallMultiples0.transform.localRotation = Quaternion.Lerp(SmallMultiples0.transform.localRotation, targetLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples01.transform.rotation = Quaternion.Lerp(SmallMultiples01.transform.rotation, targetMidLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples02.transform.rotation = Quaternion.Lerp(SmallMultiples02.transform.rotation, targetMidRightEulerAngles, timeElapsed / duration);
-                    SmallMultiples03.transform.rotation = Quaternion.Lerp(SmallMultiples03.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
+                    SmallMultiples03.transform.localRotation = Quaternion.Lerp(SmallMultiples03.transform.localRotation, targetRightEulerAngles, timeElapsed / duration);
 
-                    SmallMultiples1.transform.rotation = Quaternion.Lerp(SmallMultiples1.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
+                    SmallMultiples1.transform.localRotation = Quaternion.Lerp(SmallMultiples1.transform.localRotation, targetLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples11.transform.rotation = Quaternion.Slerp(SmallMultiples11.transform.rotation, targetMidLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples12.transform.rotation = Quaternion.Slerp(SmallMultiples12.transform.rotation, targetMidRightEulerAngles, timeElapsed / duration);
-                    SmallMultiples13.transform.rotation = Quaternion.Lerp(SmallMultiples13.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
+                    SmallMultiples13.transform.localRotation = Quaternion.Lerp(SmallMultiples13.transform.localRotation, targetRightEulerAngles, timeElapsed / duration);
 
-                    SmallMultiples2.transform.rotation = Quaternion.Lerp(SmallMultiples2.transform.rotation, targetLeftEulerAngles, timeElapsed / duration);
+                    SmallMultiples2.transform.localRotation = Quaternion.Lerp(SmallMultiples2.transform.localRotation, targetLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples21.transform.rotation = Quaternion.Slerp(SmallMultiples21.transform.rotation, targetMidLeftEulerAngles, timeElapsed / duration);
                     //SmallMultiples22.transform.rotation = Quaternion.Slerp(SmallMultiples22.transform.rotation, targetMidRightEulerAngles, timeElapsed / duration);
-                    SmallMultiples23.transform.rotation = Quaternion.Lerp(SmallMultiples23.transform.rotation, targetRightEulerAngles, timeElapsed / duration);
+                    SmallMultiples23.transform.localRotation = Quaternion.Lerp(SmallMultiples23.transform.localRotation, targetRightEulerAngles, timeElapsed / duration);
 
                     timeElapsed += Time.deltaTime;
                 }

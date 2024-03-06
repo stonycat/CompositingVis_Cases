@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using Tilia.Interactions.Controllables.LinearDriver;
 using Tilia.Interactions.Interactables.Interactables;
+using UnityEngine.UIElements;
 
 public class CreateSmallMultiples : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class CreateSmallMultiples : MonoBehaviour
     public InteractableFacade InteractableHandleY;
     public InteractableFacade WholeSmallMultiples;
 
+    
 
     private bool isLeftGrabbedY = false;
     private bool isRightGrabbedX = false;
@@ -45,6 +47,13 @@ public class CreateSmallMultiples : MonoBehaviour
     //private Vector3 lastPositionY;
     public Transform originX;
     public Transform originY;
+
+    public GameObject HandleObjLeft;
+    public GameObject HandleObjRight;
+    public GameObject WhiteHandL;
+    public GameObject WhiteHandR;
+
+
     private float initialRelativeDistanceX;
     private float initialRelativeDistanceY;
     private float absDistanceX;
@@ -111,7 +120,15 @@ public class CreateSmallMultiples : MonoBehaviour
                 Xvis21.SetActive(true);
                 Xvis22.SetActive(true);
                 Xvis23.SetActive(true);
+
+                HandleObjLeft.SetActive(false);
+                HandleObjRight.SetActive(false);
+
+                WhiteHandL.SetActive(true);
+                WhiteHandR.SetActive(true);
             }
+            
+
             //else
             //{
             //    Xvis01.SetActive(false);
