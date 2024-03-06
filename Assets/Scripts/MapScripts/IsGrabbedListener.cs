@@ -14,13 +14,19 @@ public class IsGrabbedListener : MonoBehaviour
         { 
             if (!value && isGrabbed)
             {
-                onVariableChange();
+                onVariableFalse();
+            }
+            if (value && !isGrabbed)
+            {
+                onVariableTrue();
             }
             isGrabbed = value; 
         }
     }
 
     private bool isGrabbed;
-    public event OnVariableChangeDelegate onVariableChange;
-    public delegate void OnVariableChangeDelegate();
+    public event OnVariableFalse onVariableFalse;
+    public delegate void OnVariableFalse();
+    public event OnTrueDelegate onVariableTrue;
+    public delegate void OnTrueDelegate();
 }

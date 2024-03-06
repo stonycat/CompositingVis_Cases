@@ -26,8 +26,8 @@ public class InteractableTest : MonoBehaviour
         velocity = 0;
         previousPos = transform.position;
         interactable = GetComponent<InteractableFacade>();
-        grabListener = new IsGrabbedListener();
-        grabListener.onVariableChange += GrabStatusChange;
+        //grabListener = new IsGrabbedListener();
+        //grabListener.onVariableFalse += GrabStatusChange;
     }
 
     // Update is called once per frame
@@ -38,12 +38,6 @@ public class InteractableTest : MonoBehaviour
         currentAttachInteractor = (leftInteractor.GetComponent<InteractorFacade>().GrabbedObjects.Count > 0) ? leftInteractor : (rightInteractor.GetComponent<InteractorFacade>().GrabbedObjects.Count > 0) ? rightInteractor : null;
         previousPos = transform.position;
         //if (interactable != null) grabListener.IsGrabbed = interactable.IsGrabbed;
-    }
-
-    private void GrabStatusChange()
-    {
-        Debug.Log("Listener triggered");
-        //SetGrabOffset(2);
     }
 
     public void SetGrabOffset(int option)

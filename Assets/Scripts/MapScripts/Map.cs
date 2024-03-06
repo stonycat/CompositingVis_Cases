@@ -45,7 +45,7 @@ public class Map : MonoBehaviour
         {
             return;
         }
-        trackedBarChart.Compose();
+        trackedBarChart.Compose(0.005f);
         mapObj.SetLabelHight(trackedBarChart.barHeights);
         //GetComponent<BoxCollider>().isTrigger = true;
     }

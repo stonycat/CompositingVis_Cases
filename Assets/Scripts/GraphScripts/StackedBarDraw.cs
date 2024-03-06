@@ -20,6 +20,7 @@ public class StackedBarDraw : MonoBehaviour
     public Dictionary<string, List<float>> attr;
     public Dictionary<string, float> barHeights;
     public Dictionary<string, float> barXPosition;
+    public Dictionary<string, float> barYPosition;
     public float MinX = -0.5f;
     public float MaxX = 0.5f;
 
@@ -29,6 +30,7 @@ public class StackedBarDraw : MonoBehaviour
     private int StepL;
     private List<float> XLinspace;
     private List<BarMoveAnimation> barAnimation;
+    private List<GraphBarMoveAnimation> graphBarAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -171,13 +173,16 @@ public class StackedBarDraw : MonoBehaviour
     private void Draw()
     {
         if (data == null && attr == null) return;
-        
+
         if (isStacked)
         {
             // draw Y axis
             drawYAxis();
 
             // draw View
+            barHeights = new Dictionary<string, float>();
+            barXPosition = new Dictionary<string, float>();
+            barYPosition = new Dictionary<string, float>();
             GameObject view = transform.GetChild(2).gameObject;
             GameObject BarWrap = view.transform.GetChild(0).gameObject;
             for (int i = 0; i < numNode; i++)
@@ -187,13 +192,17 @@ public class StackedBarDraw : MonoBehaviour
                 foreach (string s in attr.Keys)
                 {
                     GameObject bar = Instantiate(BarWrap, Vector3.zero, Quaternion.identity);
+                    bar.name = (i + 1).ToString() + " " + s;
                     bar.transform.parent = view.transform;
                     bar.transform.localPosition = new Vector3(XLinspace[i], val / (StepL * StepC), 0);
+                    barYPosition.Add(bar.name, val / (StepL * StepC));
                     val += attr[s][i];
-                    bar.transform.localScale = new Vector3(1f / numNode, (float)attr[s][i] / (StepL * StepC), BarWrap.transform.localScale.z);
+                    bar.transform.localScale = new Vector3(1f / numNode, attr[s][i] / (StepL * StepC), BarWrap.transform.localScale.z);
                     bar.transform.GetChild(0).GetComponent<MeshRenderer>().material = materials[idx];
                     bar.SetActive(true);
                     idx++;
+                    barHeights.Add(bar.name, attr[s][i] / (StepL * StepC));
+                    barXPosition.Add(bar.name, XLinspace[i]);
                 }
             }
         }
@@ -253,6 +262,21 @@ public class StackedBarDraw : MonoBehaviour
         }
     }
 
+    public void AddGraphBarMoveAnimation(Dictionary<string, Transform> target)
+    {
+        // target[i] is the transform of node interactable
+        graphBarAnimation = new List<GraphBarMoveAnimation>();
+        GameObject view = transform.GetChild(2).gameObject;
+        for (int i = 1; i < view.transform.childCount; i++)
+        {
+            GameObject BarWrap = view.transform.GetChild(i).gameObject;
+            GraphBarMoveAnimation animation = view.transform.GetChild(i).gameObject.AddComponent<GraphBarMoveAnimation>();
+            animation.BarChart = this;
+            animation.TargetTransform = target[BarWrap.name.Split(' ')[0]];
+            graphBarAnimation.Add(animation);
+        }
+    }
+
     public void AddBarMoveComponent(List<Transform> target)
     {
         barAnimation = new List<BarMoveAnimation>();
@@ -260,7 +284,6 @@ public class StackedBarDraw : MonoBehaviour
         Debug.Assert(target.Count + 1 == view.transform.childCount);
         for (int i = 0; i < target.Count; i++)
         {
-            Debug.Log(target[i].gameObject.name);
             Transform BarWrapTransform = view.transform.Find(target[i].gameObject.name);
             Debug.Assert(BarWrapTransform != null);
             GameObject BarWrap = BarWrapTransform.gameObject;
@@ -271,12 +294,13 @@ public class StackedBarDraw : MonoBehaviour
         }
     }
 
-    public void Compose()
+    public void Compose(float barWidth)
     {
         foreach (BarMoveAnimation animation in barAnimation)
         {
-            animation.SetToTargetPosition(0.005f, barHeights[animation.name]);
+            animation.SetToTargetPosition(barWidth, barHeights[animation.name]);
         }
+        // hide axes
         transform.parent.parent.gameObject.SetActive(false);
     }
 
@@ -290,9 +314,26 @@ public class StackedBarDraw : MonoBehaviour
         {
             animation.SetToBarChartView(1f / numAttr, barHeights[animation.name], barXPosition[animation.name]);
         }
-        //interactable.GetComponent<InteractableTest>().SetGrabOffset(0);
         interactable.transform.position = currentInteractor.transform.position;
         interactable.transform.rotation = Quaternion.identity;
         interactable.GetComponent<InteractableTest>().interactable.Grab(currentInteractor);
+    }
+
+    public void GraphCompose(Node InNode)
+    {
+        foreach (GraphBarMoveAnimation animation in graphBarAnimation)
+        {
+            animation.SetToTargetTransform(animation.transform.localScale * 2, InNode);
+        }
+        // hide axes
+        transform.parent.parent.gameObject.SetActive(false);
+    }
+
+    public void GraphDecompose()
+    {
+        foreach (GraphBarMoveAnimation animation in graphBarAnimation)
+        {
+            animation.SetToChartTransfrom(1f / numNode, barHeights[animation.name], barXPosition[animation.name], barYPosition[animation.name]);
+        }
     }
 }

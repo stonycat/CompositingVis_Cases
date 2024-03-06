@@ -11,6 +11,7 @@ public class Node : MonoBehaviour
     public bool isMoving;
     public bool isGrabbing;
     public int id;
+    public bool AnimateCompose;
 
     private GameObject epf;
     private List<GameObject> edges = new List<GameObject>();
@@ -85,8 +86,14 @@ public class Node : MonoBehaviour
         }
         Debug.Log(this.name + " collided!");
 
-        collision.gameObject.SetActive(false);
-        SetObj();
+
+        // TODO: add flying effect here
+        if (AnimateCompose) collision.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
+        else
+        {
+            SetObj();
+            collision.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

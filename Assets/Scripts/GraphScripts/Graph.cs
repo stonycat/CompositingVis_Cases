@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class Graph : MonoBehaviour
 {
-    public GameObject trackedObj;
+    public GameObject trackedInteractable;
     public List<Node> nodeList;
     public TextAsset file;
     public GameObject nodepf;
@@ -17,6 +17,7 @@ public class Graph : MonoBehaviour
     public float width;
     public float length;
     public float height;
+    public bool AnimateCompose;
 
     private List<GameObject> nodes;
     private List<float> distances;
@@ -33,11 +34,12 @@ public class Graph : MonoBehaviour
         closestNodeListener.OnVariableChange += ClosestNodeListener_OnVariableChange;
         minDistanceListener = new MinDistanceListener();
         minDistanceListener.OnVariableChange += updateNodes;
-        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MaxX = 0.46f;
-        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MinX = -0.54f;
-        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
+        trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MaxX = 0.46f;
+        trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().MinX = -0.54f;
+        trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().Loading();
         LoadGMLFromFile(file);
-        trackedObj.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
+        trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().CreateChart();
+        if (AnimateCompose) { SetAnimationTarget(); }
     }
 
     private void updateNodes(float minDist)
@@ -102,7 +104,7 @@ public class Graph : MonoBehaviour
             {
                 grabNode = i;
             }
-            float dist = node.DistanceToObj(trackedObj);
+            float dist = node.DistanceToObj(trackedInteractable);
             distances[i] = dist;
             //node.SetText(dist.ToString("F2"));
         }
@@ -115,15 +117,17 @@ public class Graph : MonoBehaviour
             {
                 Node node = nodes[i].GetComponent<Node>();
                 node.BreakObj();
-                node.HighlightNode();
+                node.DeHighlightNode();
             }
             GameObject controller = nodes[grabNode].GetComponent<Node>().UnGrab();
             nodes[grabNode].GetComponent<SphereCollider>().enabled = false;
             grabNodeIdx = grabNode;
-            trackedObj.SetActive(true);
+            trackedInteractable.SetActive(true);
             //trackedObj.GetComponent<InteractableTest>().SetGrabOffset(0);
-            trackedObj.transform.position = controller.transform.position;
-            trackedObj.GetComponent<InteractableTest>().interactable.Grab(controller);
+            trackedInteractable.transform.position = controller.transform.position;
+            trackedInteractable.transform.LookAt(trackedInteractable.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+            trackedInteractable.GetComponent<InteractableTest>().interactable.Grab(controller);
+            if (AnimateCompose) trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphDecompose();
             StartCoroutine(EnableCollider());
         }
     }
@@ -177,6 +181,7 @@ public class Graph : MonoBehaviour
                     go.SetActive(true);
                     n = go.GetComponent<Node>();
                     n.transform.parent = transform;
+                    n.AnimateCompose = AnimateCompose;
                     n.SetEdgePrefab(edgepf);
                     nodes.Add(go);
                     continue;
@@ -198,6 +203,7 @@ public class Graph : MonoBehaviour
                 if (stage == 2)
                 {
                     nodeDict.Add(word, n);
+                    n.name = word;
                     distances.Add(0f);
                     stage = 1;
                     break;
@@ -239,12 +245,23 @@ public class Graph : MonoBehaviour
 
     private void SetNodeSubObjs()
     {
-        trackedObj.SetActive(false);
+        trackedInteractable.SetActive(false);
         for (int i = 0; i < numNodes; i++)
         {
             nodeList[i].id = i;
-            nodeList[i].InitObj(trackedObj.transform);
+            nodeList[i].InitObj(trackedInteractable.transform);
         }
-        trackedObj.SetActive(true);
+        trackedInteractable.SetActive(true);
+    }
+
+    private void SetAnimationTarget()
+    {
+        Dictionary<string, Transform> targets = new Dictionary<string, Transform>();
+        for (int i = 0; i < numNodes; i++)
+        {
+            Debug.Log("name " + nodeList[i].name);
+            targets.Add(nodeList[i].name, nodeList[i].transform);
+        }
+        trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().AddGraphBarMoveAnimation(targets);
     }
 }
