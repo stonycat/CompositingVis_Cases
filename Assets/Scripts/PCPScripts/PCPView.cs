@@ -84,9 +84,8 @@ public class PCPView : MonoBehaviour
             point.name = child.name;
             point.transform.parent = ScatterPlot.transform;
             point.transform.localPosition = new Vector3(pointX[child.name], child.localPosition.y, 0);
-            point.transform.localScale = 0.05f * Vector3.one;
+            point.transform.localScale = 0.02f * Vector3.one;
             point.SetActive(true);
-            Debug.Log(point.name);
             points.Add(point.name, point);
         }
         numPoints = points.Count;
@@ -123,7 +122,6 @@ public class PCPView : MonoBehaviour
     private IEnumerator AnimateToAxis(GameObject point)
     {
         Transform scatterTransform = leftAxis.transform.GetChild(3).Find(point.name);
-        Debug.Log(point.name);
         point.transform.parent = transform;
         Vector3 originalPos = point.transform.localPosition;
         Vector3 targetPos = transform.InverseTransformPoint(scatterTransform.position);
