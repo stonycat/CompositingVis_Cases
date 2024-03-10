@@ -121,6 +121,10 @@ namespace Assets.Scripts.Model
 
                     this.projMapData.Name2GeoPoint.Add(key, newP);
                 }
+                foreach (var s in projMapData.Name2GeoPoint.Keys)
+                {
+                    Debug.Log(s + " " + projMapData.Name2GeoPoint[s]);
+                }
             }
         }
 

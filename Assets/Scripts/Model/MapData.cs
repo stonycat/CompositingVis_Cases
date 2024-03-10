@@ -104,6 +104,10 @@ namespace Assets.Scripts.Model
                     this.Name2GeoPoint.Add(thisName, new Vector3(lon, lat));
                 }
             }
+            foreach (string s in  this.Name2GeoPoint.Keys)
+            {
+                Debug.Log(s + ' ' + this.Name2GeoPoint[s]);
+            }
         }
 
         public void LoadAbbr(string abbrFilePath)

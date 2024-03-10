@@ -73,6 +73,12 @@ namespace Assets.Scripts.MonoBehaviors
             this.textScript.outlineWidth = 0;
         }
         
+        public void ChangeHeight(float height)
+        {
+            this.RawHeight = height;
+            this.SetOffset(RenderingSettings.MinZOffset);
+        }
+
         public void SetOffset(float offset)
         {
             //Debug.Log("=====================");

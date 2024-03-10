@@ -3,6 +3,7 @@ using Assets.Scripts.Projections;
 using Assets.Scripts.Projections.Map;
 using Assets.Scripts.Utilities;
 using Assets.Scripts.Utilities.Scales;
+using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.MonoBehaviors
         public ThematicType MapType = ThematicType.Choropleth;
 
         public string PropName = "Area";
+
 
         public List<MapSubRegionObj> SubRegionObjs;
 
@@ -55,6 +57,8 @@ namespace Assets.Scripts.MonoBehaviors
         public Dictionary<string, MapRegionCircle> name2Circle = new Dictionary<string, MapRegionCircle>();
         public Dictionary<string, MapRegionLabel> name2Label = new Dictionary<string, MapRegionLabel>();
 
+        private Dictionary<string, List<float>> barChartData;
+
         private INumbericScale HeightScaler;
         private INumbericScale AreaScaler;
         private IColorScale ColorScaler;
@@ -86,9 +90,14 @@ namespace Assets.Scripts.MonoBehaviors
         }
         void Start()
         {
-            Debug.Log("shiiiiiiiiit");
-            //this.DrawMap($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
+            this.DrawMap($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
             // this.UpdateMapData($"{Settings.DataDir}{this.GeoName.ToString()}-Data-Test.csv");
+            transform.parent.parent.parent.GetComponent<Map>().Init(barChartData);
+            
+        }
+
+        private void Doit()
+        {
             var defaultLineWidth = 0.0005f;
             var geoString = this.GeoName.ToString();
             if (this.GeoName == GeoName.US)
@@ -108,7 +117,7 @@ namespace Assets.Scripts.MonoBehaviors
 
             this.fitMapBoundaryProj = new FitMapProj(this.proj, this.mapBoundaryData);
             this.fitMapBoundaryProj.FitExtent(Settings.MapSize);
-            this.SetupScales($"{Settings.DataDir}{this.GeoName.ToString()}-Data.csv");
+            this.SetupScales($"{Settings.DataDir}{this.GeoName}-Data.csv");
             Action<MapSubRegionObj, MapPolygon, Color32, float> subRegionAction = null;
             Action<MapRegionCircle, Vector3, int, float, float> RegionAction = null;
             Action<MapRegionLabel, string, Vector3, float> LabelAction = null;
@@ -125,6 +134,17 @@ namespace Assets.Scripts.MonoBehaviors
 
             RegionAction = (MapRegionCircle objRef, Vector3 p, int rank, float h, float r) =>
             { };
+            LabelAction = (MapRegionLabel objRef, string name, Vector3 p, float h) =>
+            {
+                float txtScale = 1;
+                float outter = 0.1f;
+                if (this.GeoName == GeoName.EU)
+                {
+                    txtScale = 0.3f;
+                    outter = 0.3f;
+                }
+                objRef.DrawLabel(name, p, 0, txtScale, outter);
+            };
             this.name2SubRegions.Clear();
             this.name2Circle.Clear();
             foreach (var item in FitMapProj.projMapData.Name2Polygons)
@@ -132,6 +152,14 @@ namespace Assets.Scripts.MonoBehaviors
                 var thisName = item.Key;
                 var thisPolygons = item.Value;
 
+                GameObject thisPart = null;
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    if (transform.GetChild(i).name == thisName)
+                    {
+                        thisPart = transform.GetChild(i).gameObject;
+                    }
+                }
                 //var thisPart = new GameObject(thisName);
                 //thisPart.transform.parent = this.gameObject.transform;
                 //thisPart.transform.localPosition = Vector3.zero;
@@ -154,7 +182,7 @@ namespace Assets.Scripts.MonoBehaviors
                 var subRegions = new List<MapSubRegionObj>();
                 foreach (var polygon in thisPolygons)
                 {
-                    Debug.Log("Draw " + thisName + "_" + index);
+                    //Debug.Log("Draw " + thisName + "_" + index);
                     var subRegionName = $"{thisName}_{index}";
                     //var thisPoly = new GameObject($"{thisName}_{index}");
                     var thisPoly = SubRegionObjs[0];
@@ -179,7 +207,7 @@ namespace Assets.Scripts.MonoBehaviors
                 }
                 this.name2SubRegions.Add(thisName, subRegions);
 
-                //var thisP = FitMapProj.projMapData.Name2GeoPoint[thisName];
+                var thisP = FitMapProj.projMapData.Name2GeoPoint[thisName];
                 //var circleObj = new GameObject("Circle");
                 //circleObj.transform.parent = thisPart.transform;
                 //var mapPartCircle = circleObj.AddComponent<MapRegionCircle>();
@@ -188,18 +216,18 @@ namespace Assets.Scripts.MonoBehaviors
                 var rank = this.numericData.GetRank(thisName);
                 //RegionAction(mapPartCircle, thisP, rank, thisH, Mathf.Sqrt(thisR / Mathf.PI));
 
-                //if (LabelAction != null)
-                //{
-                //    var labelObj = new GameObject("Label");
-                //    labelObj.transform.parent = thisPart.transform;
-                //    labelObj.transform.localPosition = Vector3.zero;
-                //    //labelObj.transform.localScale = new Vector3(1, 1, 1);
+                if (LabelAction != null)
+                {
+                    var labelObj = new GameObject("Label");
+                    labelObj.transform.parent = thisPart.transform;
+                    labelObj.transform.localPosition = Vector3.zero;
+                    //labelObj.transform.localScale = new Vector3(1, 1, 1);
 
-                //    var mapLabel = labelObj.AddComponent<MapRegionLabel>();
-                //    this.name2Label.Add(thisName, mapLabel);
+                    var mapLabel = labelObj.AddComponent<MapRegionLabel>();
+                    this.name2Label.Add(thisName, mapLabel);
 
-                //    LabelAction(mapLabel, this.mapData.Name2Abbr[thisName], thisP, thisH);
-                //}
+                    LabelAction(mapLabel, this.mapData.Name2Abbr[thisName], thisP, thisH);
+                }
             }
             this.SetupColliders();
         }
@@ -537,6 +565,17 @@ namespace Assets.Scripts.MonoBehaviors
 
                     RegionAction = (MapRegionCircle objRef, Vector3 p, int rank, float h, float r) =>
                     {};
+                    LabelAction = (MapRegionLabel objRef, string name, Vector3 p, float h) =>
+                    {
+                        float txtScale = 1;
+                        float outter = 0.1f;
+                        if (this.GeoName == GeoName.EU)
+                        {
+                            txtScale = 0.3f;
+                            outter = 0.3f;
+                        }
+                        objRef.DrawLabel(name, p, 0, txtScale, outter);
+                    };
                     break;
                 case ThematicType.ElevatedBars:
                     subRegionAction = (MapSubRegionObj thisMapRef, MapPolygon thisPoly, Color32 c, float h) =>
@@ -613,6 +652,8 @@ namespace Assets.Scripts.MonoBehaviors
             this.name2SubRegions.Clear();
             this.name2Circle.Clear();
 
+            barChartData = new Dictionary<string, List<float>>();
+
             foreach (var item in FitMapProj.projMapData.Name2Polygons)
             {
                 var thisName = item.Key;
@@ -629,12 +670,11 @@ namespace Assets.Scripts.MonoBehaviors
                 subRegionParent.transform.localRotation = Quaternion.identity;
 
                 var thisV = this.numericData.GetValue(thisName);
+                barChartData.Add(thisName, new List<float> { thisV });
 
                 var thisH = this.HeightScaler.Project(thisV);
                 var thisC = this.ColorScaler.Project(thisV);
                 var thisR = this.AreaScaler.Project(thisV);
-
-                //Debug.Log($"{thisName}: {thisR}");
 
                 var index = 0;
                 var subRegions = new List<MapSubRegionObj>();
@@ -679,6 +719,33 @@ namespace Assets.Scripts.MonoBehaviors
             }
             if(setColliders)
                 this.SetupColliders();
+        }
+
+        public void SetLabelHight(Dictionary<string, float> barHeights)
+        {
+            foreach (var (name, label) in name2Label)
+            {
+                label.ChangeHeight(barHeights[name]);
+            }
+        }
+
+        public void ResetLabelHight()
+        {
+            Action<MapRegionLabel, string, Vector3, float> LabelAction = (MapRegionLabel objRef, string name, Vector3 p, float h) =>
+            {
+                float txtScale = 1;
+                float outter = 0.1f;
+                if (this.GeoName == GeoName.EU)
+                {
+                    txtScale = 0.3f;
+                    outter = 0.3f;
+                }
+                objRef.DrawLabel(name, p, 0, txtScale, outter);
+            };
+            foreach (var (name, label) in name2Label)
+            {
+                LabelAction(label, mapData.Name2Abbr[name], FitMapProj.projMapData.Name2GeoPoint[name], 0);
+            }
         }
     }
 }

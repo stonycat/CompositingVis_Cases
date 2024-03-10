@@ -191,8 +191,9 @@ namespace IATK
 
             foreach (var item in children)
             {
-                DestroyImmediate(item);
-                //Destroy(item);
+                if (Application.isPlaying)
+                    Destroy(item);
+                else DestroyImmediate(item);
             }
             name = backupname;
         }

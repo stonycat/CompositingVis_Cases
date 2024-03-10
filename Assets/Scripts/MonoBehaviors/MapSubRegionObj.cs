@@ -34,7 +34,7 @@ namespace Assets.Scripts.MonoBehaviors
         public void SetHighlightBoundaryMaterials(Material blueM, Material greenM)
         {
             var blueRenders = this.blueBoundaryObj.GetComponentsInChildren<LineRenderer>();
-            foreach(var bR in blueRenders)
+            foreach (var bR in blueRenders)
             {
                 bR.sharedMaterial = blueM;
                 bR.startWidth = bR.startWidth * 3;
@@ -93,7 +93,6 @@ namespace Assets.Scripts.MonoBehaviors
 
         void Start()
         {
-            
         }
 
         void Update()
@@ -132,7 +131,7 @@ namespace Assets.Scripts.MonoBehaviors
             this.rawTopRenderer.startWidth = width;
             this.rawTopRenderer.endWidth = width;
 
-            this.rawTopRenderer.sharedMaterial= lineM;
+            this.rawTopRenderer.sharedMaterial = lineM;
 
             var baseBoundary = Instantiate(boundaryObj, this.rawBoundaryObj.transform);
             baseBoundary.name = "BaseBoundary";
@@ -275,7 +274,7 @@ namespace Assets.Scripts.MonoBehaviors
 
             this.DrawBoundary(mapPolygon, lineM, lineWidth);
             this.DrawMapRegion(mapPolygon, inM);
-            
+
             //var colliderHelper = this.GetComponent<NonConvexMeshCollider>();
             //colliderHelper.Calculate();
         }
@@ -336,12 +335,12 @@ namespace Assets.Scripts.MonoBehaviors
             //DebugFileWriter.WriteVertices(this.name, unityVertices);
 
             index = 0;
-            foreach(var v in vertices)
+            foreach (var v in vertices)
             {
                 if (index < (vertices.Count - 1))
                 {
-                    unityTriangles[indexOffset02 + index * 6] =  index + 1; 
-                    unityTriangles[indexOffset02 + index * 6 + 1] = index + vertices.Count; 
+                    unityTriangles[indexOffset02 + index * 6] = index + 1;
+                    unityTriangles[indexOffset02 + index * 6 + 1] = index + vertices.Count;
                     unityTriangles[indexOffset02 + index * 6 + 2] = index;
 
                     unityTriangles[indexOffset02 + index * 6 + 3] = index + vertices.Count;

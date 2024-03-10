@@ -95,6 +95,7 @@ namespace IATK
             chunkSizeList = new List<int>();
 
             numberOfDataPoints = numberOfPoints;
+            //Debug.Log("Number of data points " + numberOfDataPoints);
             
             // Fill
             for (int i = 0; i < numberOfPoints; i++)
@@ -244,7 +245,10 @@ namespace IATK
             view.gameObject.tag = "View";
             view.gameObject.name = "View";
 
-
+            for (int i = 0; i < normals.Count; i++)
+            {
+                //Debug.Log("normal " + i + ": " + normals[i] + "; position: " + positions[i]);
+            }
             var data = new BigMesh.BigMeshData(myMeshTopolgy,
                                                positions.ToArray(),
                                                Indices.ToArray(),
