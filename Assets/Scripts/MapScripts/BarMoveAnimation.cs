@@ -21,7 +21,7 @@ public class BarMoveAnimation : MonoBehaviour
         interactableStatus.MovingThreshold = 1f;
         boxCollider = GetComponent<BoxCollider>();
         Debug.Assert(boxCollider != null);
-        Debug.Assert(!boxCollider.enabled);
+        //Debug.Assert(!boxCollider.enabled);
         // Only the upper half is trigger
         boxCollider.center = new Vector3(0, 0.75f, 0);
         boxCollider.size = new Vector3(0, 0.5f, 0);

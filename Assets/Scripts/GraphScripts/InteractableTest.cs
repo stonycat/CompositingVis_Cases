@@ -16,8 +16,8 @@ public class InteractableTest : MonoBehaviour
     public bool isMoving;
     public float MovingThreshold;
     public GameObject currentAttachInteractor;
+    public float velocity;
 
-    private float velocity;
     private Vector3 previousPos;
     // Start is called before the first frame update
     void Start()
@@ -40,26 +40,26 @@ public class InteractableTest : MonoBehaviour
         //if (interactable != null) grabListener.IsGrabbed = interactable.IsGrabbed;
     }
 
-    public void SetGrabOffset(int option)
-    {
+    //public void SetGrabOffset(int option)
+    //{
 
-        // Set "Primary Action" to "Follow"
-        int primaryActionIndex = 1; // Follow
-        GameObject primaryActionPrefab = (GameObject)PrefabUtility.InstantiatePrefab(interactable.Configuration.GrabConfiguration.ActionTypes.NonSubscribableElements[primaryActionIndex], interactable.Configuration.GrabConfiguration.ActionTypes.transform);
-        GrabInteractableAction primaryAction = primaryActionPrefab.GetComponent<GrabInteractableAction>();
-        interactable.Configuration.GrabConfiguration.PrimaryAction = primaryAction;
+    //    // Set "Primary Action" to "Follow"
+    //    int primaryActionIndex = 1; // Follow
+    //    GameObject primaryActionPrefab = (GameObject)PrefabUtility.InstantiatePrefab(interactable.Configuration.GrabConfiguration.ActionTypes.NonSubscribableElements[primaryActionIndex], interactable.Configuration.GrabConfiguration.ActionTypes.transform);
+    //    GrabInteractableAction primaryAction = primaryActionPrefab.GetComponent<GrabInteractableAction>();
+    //    interactable.Configuration.GrabConfiguration.PrimaryAction = primaryAction;
 
-        // Set "Grab Offset" to "None"
-        GrabInteractableFollowAction followAction = (GrabInteractableFollowAction)primaryAction;
-        SerializedObject actionObject = new SerializedObject(followAction);
-        SerializedProperty foundProperty = actionObject.FindProperty("grabOffset");
-        foundProperty.intValue = option; // None
-        foundProperty.serializedObject.ApplyModifiedProperties();
+    //    // Set "Grab Offset" to "None"
+    //    GrabInteractableFollowAction followAction = (GrabInteractableFollowAction)primaryAction;
+    //    SerializedObject actionObject = new SerializedObject(followAction);
+    //    SerializedProperty foundProperty = actionObject.FindProperty("grabOffset");
+    //    foundProperty.intValue = option; // None
+    //    foundProperty.serializedObject.ApplyModifiedProperties();
 
-        //int secondaryActionIndex = 5; // Scale
-        //GameObject secondaryActionPrefab = (GameObject)PrefabUtility.InstantiatePrefab(interactable.Configuration.GrabConfiguration.ActionTypes.NonSubscribableElements[secondaryActionIndex], interactable.Configuration.GrabConfiguration.ActionTypes.transform);
-        //GrabInteractableAction secondaryAction = secondaryActionPrefab.GetComponent<GrabInteractableAction>();
-        //interactable.Configuration.GrabConfiguration.SecondaryAction = secondaryAction;
-    }
+    //    //int secondaryActionIndex = 5; // Scale
+    //    //GameObject secondaryActionPrefab = (GameObject)PrefabUtility.InstantiatePrefab(interactable.Configuration.GrabConfiguration.ActionTypes.NonSubscribableElements[secondaryActionIndex], interactable.Configuration.GrabConfiguration.ActionTypes.transform);
+    //    //GrabInteractableAction secondaryAction = secondaryActionPrefab.GetComponent<GrabInteractableAction>();
+    //    //interactable.Configuration.GrabConfiguration.SecondaryAction = secondaryAction;
+    //}
 
 }

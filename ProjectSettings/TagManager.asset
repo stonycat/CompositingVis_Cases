@@ -18,6 +18,7 @@ TagManager:
   - FactorAxis
   - NumericAxis
   - PCPGeneratedPlot
+  - BarCopy
   layers:
   - Default
   - TransparentFX

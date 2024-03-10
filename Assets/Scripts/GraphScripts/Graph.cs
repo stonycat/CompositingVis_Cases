@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 public class Graph : MonoBehaviour
 {
     public GameObject trackedInteractable;
+    public GameObject trackedInteractableOld;
     public List<Node> nodeList;
     public TextAsset file;
     public GameObject nodepf;
@@ -180,6 +181,7 @@ public class Graph : MonoBehaviour
                     GameObject go = Instantiate(nodepf, new Vector3(Random.Range(transform.position.x - width / 2, transform.position.x + width / 2), Random.Range(transform.position.y - length / 2, transform.position.y + length / 2), Random.Range(transform.position.z - height / 2, transform.position.z + height / 2)), Quaternion.identity);
                     go.SetActive(true);
                     n = go.GetComponent<Node>();
+                    n.ParentGraph = this;
                     n.transform.parent = transform;
                     n.AnimateCompose = AnimateCompose;
                     n.SetEdgePrefab(edgepf);
@@ -259,7 +261,7 @@ public class Graph : MonoBehaviour
         Dictionary<string, Transform> targets = new Dictionary<string, Transform>();
         for (int i = 0; i < numNodes; i++)
         {
-            Debug.Log("name " + nodeList[i].name);
+            //Debug.Log("name " + nodeList[i].name);
             targets.Add(nodeList[i].name, nodeList[i].transform);
         }
         trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().AddGraphBarMoveAnimation(targets);

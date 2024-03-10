@@ -35,13 +35,22 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private bool isRightAngle(Transform collision)
+    {
+        Vector3 f1 = transform.TransformVector(Vector3.forward);
+        Vector3 f2 = collision.transform.TransformVector(Vector3.forward);
+        //Debug.Log(f1 + ", " + f2);
+        float ang = 50f;
+        return (transform.InverseTransformPoint(collision.position).z < 0 && Vector3.Angle(f1, f2) > ang && Vector3.Angle(f1, f2) < 180 - ang);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         ShowPreview();
-        if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
+        if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true || !isRightAngle(collision.transform))
         {
             return;
         }

@@ -3,20 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GraphBarMoveAnimation : BarMoveAnimation
+public class GraphBarMoveAnimation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    public StackedBarDraw BarChart;
+    public Transform TargetTransform;
     public void SetToTargetTransform(Vector3 newLocalScale, Node InNode)
     {
         Vector3 newLocalPosition = new Vector3(0, 0, 0);

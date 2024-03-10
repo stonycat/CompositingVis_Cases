@@ -12,6 +12,7 @@ public class Node : MonoBehaviour
     public bool isGrabbing;
     public int id;
     public bool AnimateCompose;
+    public Graph ParentGraph;
 
     private GameObject epf;
     private List<GameObject> edges = new List<GameObject>();
@@ -20,7 +21,6 @@ public class Node : MonoBehaviour
     private Color nodeTouchColor;
     private Color nodeInColor;
     private MeshRenderer meshRenderer;
-    private GameObject nodeObj;
     private GameObject subObj;
     private InteractableTest interactableStatus;
     private bool collided;
@@ -30,7 +30,7 @@ public class Node : MonoBehaviour
         collided = false;
         interactableStatus = GetComponent<InteractableTest>();
         meshRenderer = transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
-        nodeObj = transform.GetChild(0).GetChild(1).gameObject;
+        //nodeObj = transform.GetChild(0).GetChild(1).gameObject;
         nodeColor = transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color;
         nodeColor.a = 1.0f;
         meshRenderer.material.SetColor("_Color", nodeColor);
@@ -79,16 +79,25 @@ public class Node : MonoBehaviour
             // ignore collision with other nodes and edges
             return;
         }
+        //Debug.Log("Tag: " + collision.gameObject.tag + "; name: " + collision.gameObject.name);
+        //if (collision.gameObject.tag == "BarCopy")
+        //{
+        //    Debug.Log("Color changed");
+        //    meshRenderer.material.SetColor("_Color", nodeTouchColor);
+        //    //StartCoroutine(AdjustScale());
+        //    Debug.Log("Scale: " + transform.localScale);
+        //    return;
+        //}
         if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
         {
             meshRenderer.material.SetColor("_Color", nodeTouchColor);
+            //transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             return;
         }
         Debug.Log(this.name + " collided!");
 
 
-        // TODO: add flying effect here
-        if (AnimateCompose) collision.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
+        if (AnimateCompose) ParentGraph.trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
         else
         {
             SetObj();
@@ -96,12 +105,39 @@ public class Node : MonoBehaviour
         }
     }
 
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "HandCollider" && collided)
         {
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             GetComponent<Rigidbody>().mass = 3f;
+        }
+        if (other.tag == "BarCopy" && !collided)
+        {
+            Debug.Log("lalala");
+            if (other.transform.parent.parent.parent.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
+            {
+                //transform.position = Vector3.zero;
+                meshRenderer.material.SetColor("_Color", nodeTouchColor);
+                //GetComponent<Rigidbody>().WakeUp();
+                transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                return;
+            }
+            if (AnimateCompose)
+            {
+                //transform.localPosition = 0.05f * Vector3.one;
+                //ParentGraph.trackedInteractableOld = other.transform.parent.GetComponent<BarCopyObjectInteractable>().origin;
+                //ParentGraph.trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
+                transform.localScale = 0.05f * Vector3.one;
+                other.transform.parent.GetComponent<BarCopyObjectInteractable>().origin.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
+            }
+            else
+            {
+                SetObj();
+                other.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -111,6 +147,11 @@ public class Node : MonoBehaviour
         {
             transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             GetComponent<Rigidbody>().mass = 1f;
+        }
+        if (other.tag == "BarCopy" && !collided)
+        {
+            meshRenderer.material.SetColor("_Color", nodeColor);
+            //transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
     }
 
@@ -122,6 +163,7 @@ public class Node : MonoBehaviour
             return;
         }
         meshRenderer.material.SetColor("_Color", nodeColor);
+        //transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         collided = false;
     }
 
@@ -175,6 +217,7 @@ public class Node : MonoBehaviour
     {
         if (collided) return;
         meshRenderer.material.SetColor("_Color", nodeInColor);
+        ParentGraph.trackedInteractable = ParentGraph.trackedInteractableOld;
         subObj.SetActive(true);
         collided = true;
     }
@@ -208,6 +251,7 @@ public class Node : MonoBehaviour
         collided = false;
         subObj.SetActive(false);
         meshRenderer.material.SetColor("_Color", nodeColor);
+        GetComponent<Rigidbody>().mass = 1f;
     }
 
     public void AddRepForce(Node n)

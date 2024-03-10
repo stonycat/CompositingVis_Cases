@@ -16,13 +16,16 @@ public class StackedBarDraw : MonoBehaviour
     public bool isStacked;
     public bool useDifferentMaterialEachBar;
     public bool isMoving;
+    public bool BarCopyAllowed;
     public GameObject MovingTarget;
+    public GameObject BarCopy;
     public Dictionary<string, List<float>> attr;
     public Dictionary<string, float> barHeights;
     public Dictionary<string, float> barXPosition;
     public Dictionary<string, float> barYPosition;
     public float MinX = -0.5f;
     public float MaxX = 0.5f;
+    public InteractableTest interactable;
 
     private int numAttr;
     private int numNode;
@@ -35,14 +38,28 @@ public class StackedBarDraw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        BarCopyAllowed = true;
+        //interactable.grabListener = new IsGrabbedListener();
+        //interactable.grabListener.onVariableFalse += UngrabThis;
+        //interactable.grabListener.onVariableTrue += GrabThis;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //interactable.grabListener.IsGrabbed = interactable.interactable.IsGrabbed;
     }
+
+    //private void UngrabThis()
+    //{
+    //    //BarCopyAllowed = true;
+    //    //Debug.Log("Ungrab This Barchart");
+    //}
+
+    //private void GrabThis()
+    //{
+
+    //}
 
     public void Loading()
     {
@@ -112,8 +129,6 @@ public class StackedBarDraw : MonoBehaviour
         float mag = Mathf.Floor(Mathf.Log10(largest));
         StepL = (int)Mathf.Pow(10, mag);
         StepC = (int)Mathf.Ceil(largest / StepL);
-        Debug.Log(StepL);
-        Debug.Log(StepC);
     }
 
     private void ProcessData()
@@ -193,6 +208,9 @@ public class StackedBarDraw : MonoBehaviour
                 {
                     GameObject bar = Instantiate(BarWrap, Vector3.zero, Quaternion.identity);
                     bar.name = (i + 1).ToString() + " " + s;
+                    BoxCollider bc = bar.AddComponent<BoxCollider>();
+                    bc.isTrigger = true;
+                    bc.enabled = false;
                     bar.transform.parent = view.transform;
                     bar.transform.localPosition = new Vector3(XLinspace[i], val / (StepL * StepC), 0);
                     barYPosition.Add(bar.name, val / (StepL * StepC));
@@ -270,7 +288,7 @@ public class StackedBarDraw : MonoBehaviour
         for (int i = 1; i < view.transform.childCount; i++)
         {
             GameObject BarWrap = view.transform.GetChild(i).gameObject;
-            GraphBarMoveAnimation animation = view.transform.GetChild(i).gameObject.AddComponent<GraphBarMoveAnimation>();
+            GraphBarMoveAnimation animation = BarWrap.AddComponent<GraphBarMoveAnimation>();
             animation.BarChart = this;
             animation.TargetTransform = target[BarWrap.name.Split(' ')[0]];
             graphBarAnimation.Add(animation);
@@ -302,6 +320,7 @@ public class StackedBarDraw : MonoBehaviour
         }
         // hide axes
         transform.parent.parent.gameObject.SetActive(false);
+        
     }
 
     public void Decompose(GameObject currentInteractor)
@@ -327,6 +346,12 @@ public class StackedBarDraw : MonoBehaviour
         }
         // hide axes
         transform.parent.parent.gameObject.SetActive(false);
+        if (BarCopy != null)
+        {
+            BarCopy.SetActive(false);
+            BarCopyAllowed = false;
+            GetComponent<BoxCollider>().isTrigger = false;
+        }
     }
 
     public void GraphDecompose()
