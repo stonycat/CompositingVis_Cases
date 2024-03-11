@@ -90,19 +90,19 @@ public class Node : MonoBehaviour
         //}
         if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
         {
-            meshRenderer.material.SetColor("_Color", nodeTouchColor);
+            //meshRenderer.material.SetColor("_Color", nodeTouchColor);
             //transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             return;
         }
         Debug.Log(this.name + " collided!");
 
 
-        if (AnimateCompose) ParentGraph.trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
-        else
-        {
-            SetObj();
-            collision.gameObject.SetActive(false);
-        }
+        //if (AnimateCompose) ParentGraph.trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);
+        //else
+        //{
+        //    SetObj();
+        //    collision.gameObject.SetActive(false);
+        //}
     }
 
 

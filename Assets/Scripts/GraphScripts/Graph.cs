@@ -5,6 +5,7 @@ using Tilia.Interactions.Interactables.Interactables;
 using Tilia.Interactions.Interactables.Interactables.Grab.Action;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Graph : MonoBehaviour
@@ -265,5 +266,16 @@ public class Graph : MonoBehaviour
             targets.Add(nodeList[i].name, nodeList[i].transform);
         }
         trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().AddGraphBarMoveAnimation(targets);
+    }
+
+    public void ChangeScene()
+    {
+        int idx = SceneManager.GetActiveScene().buildIndex;
+        idx++;
+        if (idx == SceneManager.sceneCountInBuildSettings)
+        {
+            idx = 0;
+        }
+        SceneManager.LoadScene(idx);
     }
 }

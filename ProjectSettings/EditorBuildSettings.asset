@@ -5,15 +5,27 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/IATK/Datasets/Scenes/VRTK v4 Scene.unity
-    guid: 681e143a8cc7683489311884a25a515e
-  - enabled: 0
-    path: Assets/Scenes/Exp.unity
-    guid: 79e46c31a201d4b47834e5e3662b43c8
+  - enabled: 1
+    path: Assets/Scenes/EmptyScene_WHand.unity
+    guid: 93ab862e7477fef45bd1628a75ca353a
+  - enabled: 1
+    path: Assets/Scenes/CreateIntegratedView.unity
+    guid: fa5138a264db5ec4895796f39a15cb5f
   - enabled: 1
     path: Assets/Scenes/CreateSmallMultiples_Extend.unity
     guid: 1c65f7f3ca8340b4c826850b39275d30
+  - enabled: 1
+    path: Assets/Scenes/CreateSmallMultiples_Partition.unity
+    guid: ee58ac453016b234597efe074f783aa5
+  - enabled: 1
+    path: Assets/Scenes/ParalellScatterScene.unity
+    guid: 737ec87ee97a29b44a66b23f3b1aa09e
+  - enabled: 1
+    path: Assets/Scenes/Exp.unity
+    guid: 79e46c31a201d4b47834e5e3662b43c8
+  - enabled: 1
+    path: Assets/Scenes/GraphScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5c3cfd3e962a718469f32d816fc26e0e,
       type: 2}
