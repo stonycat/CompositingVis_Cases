@@ -6,25 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/EmptyScene_WHand.unity
+    path: Assets/Scenes/1_EmptyScene_WHand.unity
     guid: 93ab862e7477fef45bd1628a75ca353a
   - enabled: 1
-    path: Assets/Scenes/CreateIntegratedView.unity
+    path: Assets/Scenes/2_CreateIntegratedView.unity
     guid: fa5138a264db5ec4895796f39a15cb5f
   - enabled: 1
-    path: Assets/Scenes/CreateSmallMultiples_Extend.unity
+    path: Assets/Scenes/3_CreateSmallMultiples_Extend.unity
     guid: 1c65f7f3ca8340b4c826850b39275d30
   - enabled: 1
-    path: Assets/Scenes/CreateSmallMultiples_Partition.unity
+    path: Assets/Scenes/4_CreateSmallMultiples_Partition.unity
     guid: ee58ac453016b234597efe074f783aa5
   - enabled: 1
-    path: Assets/Scenes/ParalellScatterScene.unity
+    path: Assets/Scenes/5_ParalellScatterScene.unity
     guid: 737ec87ee97a29b44a66b23f3b1aa09e
   - enabled: 1
-    path: Assets/Scenes/Exp.unity
+    path: Assets/Scenes/6_Exp.unity
     guid: 79e46c31a201d4b47834e5e3662b43c8
   - enabled: 1
-    path: Assets/Scenes/GraphScene.unity
+    path: Assets/Scenes/7_GraphScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5c3cfd3e962a718469f32d816fc26e0e,

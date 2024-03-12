@@ -10,8 +10,8 @@ public class ChangeSceneScript : MonoBehaviour
     {
         if (x == 1)
         {
-            Debug.Log("ahahahaa");
             int idx = SceneManager.GetActiveScene().buildIndex;
+            Debug.Log(idx);
             idx++;
             if (idx == SceneManager.sceneCountInBuildSettings)
             {
@@ -26,6 +26,6 @@ public class ChangeSceneScript : MonoBehaviour
 
     public void test()
     {
-        Debug.Log("dasdasdasd");
+        //Debug.Log("dasdasdasd");
     }
 }
