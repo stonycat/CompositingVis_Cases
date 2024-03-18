@@ -84,7 +84,7 @@ public class PCPView : MonoBehaviour
             point.name = child.name;
             point.transform.parent = ScatterPlot.transform;
             point.transform.localPosition = new Vector3(pointX[child.name], child.localPosition.y, 0);
-            point.transform.localScale = 0.02f * Vector3.one;
+            point.transform.localScale = 0.03f * Vector3.one;
             point.SetActive(true);
             points.Add(point.name, point);
         }

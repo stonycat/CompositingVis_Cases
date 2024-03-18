@@ -113,7 +113,9 @@ public class Line : ParallelCoordinatePlot
                 if (y > 5 || y < -5)
                 {
                     lineRenderer.positionCount = 0;
-                    break;
+                    point.transform.localPosition = new Vector3(pointXY.Max, pointXY.Min, 0);
+                    point.SetActive(false);
+                    return;
                 }
                 Vector3 pos = transform.parent.TransformPoint(new Vector3((1 - t) * x1 + t * x2, y, 0));
                 lineRenderer.SetPosition(i, pos);
