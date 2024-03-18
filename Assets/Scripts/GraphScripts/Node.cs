@@ -88,6 +88,10 @@ public class Node : MonoBehaviour
         //    Debug.Log("Scale: " + transform.localScale);
         //    return;
         //}
+        if (collision.gameObject.GetComponent<InteractableTest>() == null)
+        {
+            return;
+        }
         if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
         {
             //meshRenderer.material.SetColor("_Color", nodeTouchColor);
