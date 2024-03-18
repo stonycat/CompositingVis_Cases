@@ -32,11 +32,11 @@ public class Node : MonoBehaviour
         meshRenderer = transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         //nodeObj = transform.GetChild(0).GetChild(1).gameObject;
         nodeColor = transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color;
-        nodeColor.a = 1.0f;
+        //nodeColor.a = 1.0f;
         meshRenderer.material.SetColor("_Color", nodeColor);
-        nodeTouchColor = new Color(nodeColor.r, 12, nodeColor.b, 0.3f);
+        nodeTouchColor = new Color(136 /255f, 162 /255f, 192 / 225f, 0.3f);
         nodeInColor = nodeColor;
-        nodeInColor.a = 0.3f;
+        nodeInColor.a = 0.2f;
     }
     private void FixedUpdate()
     {
@@ -88,13 +88,13 @@ public class Node : MonoBehaviour
         //    Debug.Log("Scale: " + transform.localScale);
         //    return;
         //}
-        if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
-        {
-            //meshRenderer.material.SetColor("_Color", nodeTouchColor);
-            //transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-            return;
-        }
-        Debug.Log(this.name + " collided!");
+        //if (collision.gameObject.GetComponent<InteractableTest>().interactable.IsGrabbed == true)
+        //{
+        //    //meshRenderer.material.SetColor("_Color", nodeTouchColor);
+        //    //transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        //    return;
+        //}
+        //Debug.Log(this.name + " collided!");
 
 
         //if (AnimateCompose) ParentGraph.trackedInteractable.transform.GetChild(0).GetChild(1).GetComponent<StackedBarDraw>().GraphCompose(this);

@@ -303,10 +303,10 @@ namespace Assets.Scripts.MonoBehaviors
                 switch(this.ColorName)
                 {
                     case PaletteName.YlGn:
-                        this.ColorScaler = new ColorMapper(thisMin, thisMax, ColorBrewerPalette.YlGn(9).colors, func);
+                        this.ColorScaler = new ColorMapper(thisMin, thisMax, ColorBrewerPalette.Blues(9).colors, func);
                         break;
                     case PaletteName.YlOrBr:
-                        this.ColorScaler = new ColorMapper(thisMin, thisMax, ColorBrewerPalette.YlOrBr(9).colors, func);
+                        this.ColorScaler = new ColorMapper(thisMin, thisMax, ColorBrewerPalette.Blues(9).colors, func);
                         break;
                 }
             }

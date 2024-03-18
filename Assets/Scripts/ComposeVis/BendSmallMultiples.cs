@@ -63,8 +63,8 @@ public class BendSmallMultiples : MonoBehaviour
         RightInitalPosition = RightButton.transform.position.x;
         LeftInitalPosition = LeftButton.transform.position.x;
 
-        targetLeftEulerAngles = Quaternion.Euler(new Vector3(0, -30, 0));
-        targetRightEulerAngles = Quaternion.Euler(new Vector3(0, 30, 0));
+        targetLeftEulerAngles = Quaternion.Euler(new Vector3(0, -40, 0));
+        targetRightEulerAngles = Quaternion.Euler(new Vector3(0, 40, 0));
 
         //targetMidLeftEulerAngles = Quaternion.Euler(new Vector3(0, -10, 0));
         //targetMidRightEulerAngles = Quaternion.Euler(new Vector3(0, 10, 0));
