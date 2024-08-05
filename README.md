@@ -27,7 +27,7 @@ How to use this design space?
 
 ### Acknowledgements
 We used several third-party toolkits and projects:
-- [IATK] (https://github.com/MaximeCordeil/IATK)
+- [IATK](https://github.com/MaximeCordeil/IATK)
 - [Tilia](https://www.vrtk.io/tilia.html)
 - [CSVHelper](https://joshclose.github.io/CsvHelper/)
 
