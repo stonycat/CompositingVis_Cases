@@ -10,7 +10,6 @@
 CompositingVis is a design space for embodied interactions that can be used to create composite visualization in immersive environments. This repository is the code of our case study to demonstrate the usage of the design space in our paper. The code is partially built on top of [IATK] (https://github.com/MaximeCordeil/IATK) (created by Cordeil Maxime et al.).
 
 ### Design Space
-![figures/DesignSpace.png](figures/DesignSpace.png) 
 How to use this design space? 
 - Check the data relationships between two views (input)
 - Define the composite visualization type (output)
