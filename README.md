@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2408.02240">Paper</a> |
-  <a href="#">Supplemental Video (To appear)</a>
+  <a href="https://www.youtube.com/watch?v=V2lK1adSMLM">Demo Video</a>
 </p>
 
 CompositingVis is a design space for embodied interactions that can be used to create composite visualization in immersive environments. This repository is the code of our case study to demonstrate the usage of the design space in our paper. The code is partially built on top of [IATK] (https://github.com/MaximeCordeil/IATK) (created by Cordeil Maxime et al.).
