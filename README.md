@@ -24,6 +24,17 @@ How to use this design space?
 - Overloaded View
 - Nested View
 
+### Citation
+```
+@article{zhu2024compositingvis,
+  title={CompositingVis: Exploring Interactions for Creating Composite Visualizations in Immersive Environments},
+  author={Zhu, Qian and Lu, Tao and Guo, Shunan and Ma, Xiaojuan and Yang, Yalong},
+  journal={arXiv preprint arXiv:2408.02240},
+  year={2024}
+}
+```
+
+
 ### Acknowledgements
 We used several third-party toolkits and projects:
 - [IATK](https://github.com/MaximeCordeil/IATK)
